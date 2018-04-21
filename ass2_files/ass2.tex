@@ -1,0 +1,37 @@
+\documentclass[a4paper,12pt,fleqn]{scrartcl}
+\usepackage[l2tabu,orthodox]{nag}% Old habits die hard. All the same, there are commands, classes and packages which are outdated and superseded. nag provides routines to warn the user about the use of those.
+\usepackage[all,error]{onlyamsmath}% Error on deprecated math commands like $$ $$.
+\usepackage{fixltx2e}
+\usepackage[strict=true]{csquotes}
+\usepackage{listings}
+\lstset{frame=single,framerule=0pt,language={C},showstringspaces=false,numbers=left,columns=fullflexible}
+\usepackage{color}
+\usepackage{2111defs2,2111theorems}
+
+\newcommand{\singlequote}[1]{`#1'}
+\newcommand{\myjustification}[2][\Equiv]{{}#1{} &{\bcolor\langle\text{#2}\rangle}\\}
+\newcommand{\remark}[1]{{\sffamily\color{blue}{#1}}}
+\newcommand{\myImplies}[2]{\color{red}#1\color{blue}\Implies\color{red}#2\color{black}}
+
+\title{Assignment 2 - Emirps}
+\date{COMP2111 18s1}
+\author{Rahil Agrawal z5165505\\Aditya Karia zXXXXXXX}
+
+\begin{document}
+\pagenumbering{gobble}
+\maketitle
+\pagenumbering{Roman}
+
+\section{Task 1 - Specification Statement}
+\label{sec:task-1}
+\remark{The spec}
+
+\section{Task 2 - Derivation}
+\label{sec:task-1}
+\remark{The derivation}
+
+\section{Task 3 - C Code}
+\label{sec:task-1}
+\lstinputlisting{emirp.c}
+
+\end{document}
