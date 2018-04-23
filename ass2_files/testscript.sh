@@ -16,5 +16,6 @@ do
 		tput setaf 2;tput bold;echo PASS
 	fi
 done
+rm $dir/output* > /dev/null
 tput setaf 4;tput bold;echo Make Clean
 make clean > /dev/null
