@@ -5,9 +5,9 @@ unsigned long emirp(unsigned long n);
 void isPrime(unsigned long r, int *a);
 
 int main (int argc, char* argv[]){
-	unsigned long n = 5;
-	// scanf("%lu", &n);
-	printf("%lu\n",emirp(n));
+	unsigned long n;
+	if(scanf("%lu", &n)==1)
+	   printf("%lu\n",emirp(n));
 }
 
 /*
@@ -19,7 +19,7 @@ while i != n do
     isPrime(r,a)
     if a = 1 then 
         var s := 0
-        reversn(r,s)
+        reversen(r,s)
         var b := 1
         isPrime(s, b)
         if b = 1 && s != r then
