@@ -1,0 +1,227 @@
+\documentclass[headings=small,a4paper,12pt]{scrartcl}
+% sometimes it's useful to have smaller fractions
+\usepackage{nicefrac}
+% COMP2111-specific macros. See
+% http://www.cse.unsw.edu.au/~cs2111/17s1/LaTeX/primer.html
+\usepackage{2111defs2}
+
+\newcommand{\sorted}[3]{\mathit{s'ed}(#1[#2..#3])}
+\newcommand{\sort}[3]{\mathit{sort}(#1[#2..#3])}
+\newcommand{\pre}{\mathit{pre}}
+\newcommand{\post}{\mathit{post}}
+\newcommand{\bs}{\textsc{bs}\xspace}
+
+\title{A $\bs$ Derivation}
+\author{Kai Engelhardt}
+% that one align* may not fit onto a single page
+\allowdisplaybreaks
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+\label{sec:introduction}
+
+In this short note we're going to derive a recursive implementation of
+\emph{binary search} on arrays of integers. The purpose of this note
+is not only to demonstrate how to do the derivation but also, by
+publishing the \LaTeX~source, to aid students in tyesetting such a
+derivation.
+
+This particular version of binary search is supposed to return $-1$ if
+the item we're looking for is not in the array, and the index of a
+postion of the item if it is.
+
+\section{The Derivation}
+\label{sec:derivation}
+
+We start with a spec of the procedure $\bs$. Special care was taken of
+the ranges of the left and right boundaries $l$ and $r$ to ensure that
+recursive calls satisfy the precondition.
+\begin{align*}
+  &\PROC~\bs(\VALUE~a, \VALUE~N, \VALUE~v, \VALUE~l, \VALUE~r, \RESULT~p)\cdot{}\\
+  &\qquad  \nt{a,N,v,l,r,p:\left[
+    \begin{array}{l}
+      l\in 0..N\And r\in -1..N-1\And l\leq r+1 \And \sorted a0{N-1},\\
+      (a_0[p]=v_0\And p\in l_0..r_0)\Or (p=-1\And\All{x\in l_0..r_0}{a_0[x]\neq v_0})
+    \end{array}
+  \right]}{(1)}\\
+% 
+  \lrefstep{(1)}
+  {\textbf{c-frame}}
+  {
+  \nt{p:\left[
+  \begin{array}{l}
+    l\in 0..N\And r\in -1..N-1\And l\leq r+1 \And \sorted a0{N-1}\\
+    (a[p]=v\And p\in l..r)\Or (p=-1\And\All{x\in l..r}{a[x]\neq v})
+  \end{array}
+  \right]}{(2)}}\\
+% 
+  \refstep{\textbf{if}}
+  {\IF~l=r+1\\
+  &\THEN~\nt{p:[l=r+1\And\pre(2),\post(2)]}{(3)}\\
+  &\ELSE~\nt{p:[l\neq r+1\And\pre(2),\post(2)]}{(4)}\\
+  &\FI}\\
+%
+  \lrefstep{(3)}
+  {\textbf{ass}, justified below in Sect.~\ref{sec:proof3ass}}
+  {p\Ass -1}\\
+%
+  \lrefstep{(4)}
+  {\textbf{if}}
+  {\IF~a[\nicefrac{(r+l)}2]=v\\
+  &\THEN~\nt{p:[a[\nicefrac{(r+l)}2]=v    \And\pre(4),\post(4)]}{(5)}\\
+  &\ELSE~\nt{p:[a[\nicefrac{(r+l)}2]\neq v\And\pre(4),\post(4)]}{(6)}\\
+  &\FI}\\
+%
+  \lrefstep{(5)}
+  {\textbf{ass}, justified below in Sect.~\ref{sec:proof5ass}}
+  {p\Ass \nicefrac{(r+l)}2}\\
+%
+  \lrefstep{(6)}
+  {\textbf{if}}
+  {\IF~a[\nicefrac{(r+l)}2]<v\\
+  &\THEN~\nt{p:[a[\nicefrac{(r+l)}2]<v     \And\pre(6),\post(6)]}{(7)}\\
+  &\ELSE~\nt{p:[a[\nicefrac{(r+l)}2]\not< v\And\pre(6),\post(6)]}{(8)}\\
+  &\FI}\\
+% 
+  \lrefstep{(7)}
+  {\textbf{s-post}, justified below in Sect.~\ref{sec:proof7post}}
+  {p:[\pre(7),(\post(2))\subst{\nicefrac{(r+l)}2+1}l]}\\
+% 
+  \refstep
+  {\textbf{w-pre}, justified below in Sect.~\ref{sec:proof7pre}}
+  {p:[(\pre(1))\subst{\nicefrac{(r+l)}2+1}l,(\post(2))\subst{\nicefrac{(r+l)}2+1}l}\\
+% 
+  \refstep
+  {\textbf{proc}}
+  {\bs(a,N,v,\nicefrac{(r+l)}2+1,r,p)}\\
+% 
+  \lrefstep{(8)}
+  {\textbf{s-post}, justified below in Sect.~\ref{sec:proof8post}}
+  {p:[\pre(8),(\post(2))\subst{\nicefrac{(r+l)}2-1}r]}\\
+% 
+  \refstep
+  {\textbf{w-pre}, justified below in Sect.~\ref{sec:proof8pre}}
+  {p:[(\pre(1))\subst{\nicefrac{(r+l)}2-1}r,(\post(2))\subst{\nicefrac{(r+l)}2-1}r}\\
+% 
+  \refstep
+  {\textbf{proc}}
+  {\bs(a,N,v,l,\nicefrac{(r+l)}2-1,p)}
+\end{align*}
+We gather the code for the procedure body of $\bs$:
+\begin{tabbing}% unfortunately, tabbing doesn't do maths
+\qquad\=$\IF~l=r+1$\+\\
+$\THEN~p\Ass -1$\\
+$\ELSE~$\=$\IF~a[\nicefrac{(r+l)}2]=v$\+\\
+$\THEN~p\Ass \nicefrac{(r+l)}2$\\
+$\ELSE~$\=$\IF~a[\nicefrac{(r+l)}2]<v$\+\\
+$\THEN~\bs(a,N,v,\nicefrac{(r+l)}2+1,r,p)$\\
+$\ELSE~\bs(a,N,v,l,\nicefrac{(r+l)}2-1,p)$\\
+$\FI$\-\\
+$\FI$\-\\
+$\FI$
+\end{tabbing}
+
+
+\subsection{Proof of $(3)\isrefinedby p\Ass -1$}
+\label{sec:proof3ass}
+
+We need to prove validity
+\begin{gather*}
+  p=p_0\And l=r+1\And\pre(2) \Implies (\post(2))\subst{-1}p
+\end{gather*}
+i.e., the prerequisite of the relevant instance of \textbf{ass}.
+Expanding the definitions and performing the substitution yields
+\begin{gather*}
+  p=p_0\And {\color{blue}l=r+1}\And l\in 0..N\And r\in -1..N-1\And l\leq r+1 \And
+  \sorted a0{N-1}\Implies{}\\
+  (a[-1]=v\And -1\in l..r)\Or ({\color{green}-1=-1}\And{\color{blue}\All{x\in l..r}{a[x]\neq v}})
+\end{gather*}
+Clearly, we should establish the second disjunct of the RHS. Its
+{\color{green}first conjunct} is obviously true. And the second is
+vacuously true once we take the second conjunct of the LHS, $l=r+1$,
+into account, since that means that the range $l..r$ is empty.
+
+
+\subsection{Proof of $(5)\isrefinedby p\Ass \nicefrac{(r+l)}2$}
+\label{sec:proof5ass}
+
+We need to prove validity of
+\begin{gather*}
+  p=p_0\And\pre(5) \Implies (\post(5))\subst{\nicefrac{(r+l)}2}p
+\end{gather*}
+i.e., the prerequisite of the relevant instance of \textbf{ass}.
+Expanding the definitions and performing the substitution yields
+\begin{gather*}
+  \left(
+    \begin{array}{l}
+      p=p_0\And {\color{blue}a[\nicefrac{(r+l)}2]=v} \And {\color{green}l\neq r+1}\And{}\\
+      l\in 0..N\And r\in -1..N-1\And {\color{green}l\leq r+1} \And \sorted a0{N-1}
+    \end{array}
+  \right) \Implies{}\\
+  ({\color{blue}a[\nicefrac{(r+l)}2]=v}\And {\color{green}\nicefrac{(r+l)}2\in l..r})\Or
+  (\nicefrac{(r+l)}2=-1\And\All{x\in l..r}{a[x]\neq v})\enskip.
+\end{gather*}
+This time, we should establish the first disjunct of the RHS. The
+first conjunct of that is also the second conjunct in the LHS.
+Combining the LHS conjuncts $l\neq r+1$ and $l\leq r+1$ we obtain
+$l\leq r$ and hence $l\leq \nicefrac{(r+l)}2 \leq r$---the second
+conjunct we're trying to establish.
+
+
+\subsection{Proof of $\pre(7)\And (\post(2))\subst{\nicefrac{(r+l)}2+1}l\Implies \post(7)$}
+\label{sec:proof7post}
+
+Expanding the definitions and performing the substitution yields
+\begin{gather*}
+  \left(
+    \begin{array}{l}
+      a[\nicefrac{(r+l)}2]<v\And a[\nicefrac{(r+l)}2]\neq v \And l\neq r+1\And{}\\
+      l\in 0..N\And r\in -1..N-1\And l\leq r+1 \And \sorted a0{N-1}\And{}\\
+      ((a[p]=v\And p\in (\nicefrac{(r+l)}2+1)..r)\Or (p=-1\And\All{x\in (\nicefrac{(r+l)}2+1)..r}{a[x]\neq v}))
+    \end{array}
+  \right)
+  \Implies{}\\
+  (a[p]=v\And p\in l..r)\Or (p=-1\And\All{x\in l..r}{a[x]\neq v})
+\end{gather*}
+According the third line of the LHS, there are two cases to consider:
+\begin{enumerate}
+\item $a[p]=v\And p\in (\nicefrac{(r+l)}2+1)..r$: the fist disjunct
+  of the RHS follows immediately.
+\item $p=-1\And\All{x\in (\nicefrac{(r+l)}2+1)..r}{a[x]\neq v}$: we
+  prove the second disjunct of the RHS. Its first conjunct is part of
+  this case. The second is marginally trickier. To see that the larger
+  subrange of $a$ does not contain $v$, we consult the conjuncts
+  $a[\nicefrac{(r+l)}2]<v$ and $\sorted a0{N-1}$ of the LHS. Those
+  together imply that $v$ cannot be found in
+  $a[l..\nicefrac{(r+l)}2]$.
+\end{enumerate}
+
+\subsection{Proof of $\pre(7)\Implies (\pre(1))\subst{\nicefrac{(r+l)}2+1}l$}
+\label{sec:proof7pre}
+
+Expanding the definitions and performing the substitution yields
+\begin{gather*}
+  \left(
+    \begin{array}{l}
+      a[\nicefrac{(r+l)}2]<v\And a[\nicefrac{(r+l)}2]\neq v \And l\neq r+1\And{}\\
+      l\in 0..N\And {\color{green}r\in -1..N-1}\And l\leq r+1 \And {\color{blue}\sorted a0{N-1}}
+    \end{array}
+  \right)
+  \Implies{}\\
+  \nicefrac{(r+l)}2+1\in 0..N\And {\color{green}r\in -1..N-1}\And \nicefrac{(r+l)}2+1\leq r+1 \And {\color{blue}\sorted a0{N-1}}
+\end{gather*}
+The uncoloured conjuncts of the LHS imply $r,l\in 0..N-1$ and
+$l\leq r$, which is sufficient to ensure the uncoloured conjuncts of
+the RHS.
+
+\subsection{Proof of $\pre(8)\And (\post(2))\subst{\nicefrac{(r+l)}2-1}r\Implies \post(8)$}
+\label{sec:proof8post}
+
+etc.
+\subsection{Proof of $\pre(7)\Implies (\pre(1))\subst{\nicefrac{(r+l)}2-1}r$}
+\label{sec:proof8pre}
+
+etc
+\end{document}
