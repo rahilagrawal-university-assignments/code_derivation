@@ -30,7 +30,17 @@
 
 \section{Task 1 - Specification Statement}
 \label{sec:task-1}
-\remark{The spec}
+\remark{Notes:\\-Write neatly\\-make sure grammar is correct\\-look at examples for default spec structure.}\\\\
+\remark{Define an Emirp using 2 functions - reverse and prime. Make these functions match with their given specs in order to help prove implications.}\\\\
+Pre condition: $n$ is a positive number - $n>0$\\\\
+Post condition $EMIRP(r,n)$ where $r$ is the $n^{th}$ emirp(where emirp is as defined above).
+Therefore our program can be specified by:\\
+$\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
+ \qquad  \nt{n,r:\left[
+    \begin{array}{l}
+      n>0, Emirp(r,n)
+    \end{array}
+  \right]}{(1)}\\$
 
 \section{Task 2 - Derivation}
 \label{sec:task-1}
@@ -143,7 +153,7 @@
   \right]}{(12)}}\\
 \end{align*}
 \begin{align*}
-\lrefstep{(11)}
+  \lrefstep{(11)}
   {\textbf{i-loc}}
   {
   \nt{a,i,r:\left[
@@ -152,10 +162,54 @@
     \end{array}
   \right]}{(13)}}\\
 %
-  \refstep{\textbf{if}}
-  {\IF~l=r+1\\
-  &\THEN~\nt{p:[l=r+1\And\pre(2),\post(2)]}{(3)}\\
-  &\ELSE~\nt{p:[l\neq r+1\And\pre(2),\post(2)]}{(4)}\\
+  \lrefstep{(13)}
+  {\textbf{seq}}
+  {
+  \nt{a,i,r:\left[
+    \begin{array}{l}
+      Inv\subst{r+1}{r}, Inv\subst{r+1}{r}\And a=1
+    \end{array}
+  \right]}{(14)};\\
+  &\nt{a,i,r:\left[
+    \begin{array}{l}
+      Inv\subst{r+1}{r}\And a=1, Inv
+    \end{array}
+  \right]}{(15)}
+  }\\
+%
+  \lrefstep{(14)}
+  {\textbf{c-frame}}
+  {
+  \nt{a:\left[
+    \begin{array}{l}
+      Inv\subst{r+1}{r}, Inv\subst{r+1}{r}\And a=1  
+    \end{array}
+  \right]}{(16)}}\\
+%
+  \refstep{\textbf{ass - \color{blue}(4)}}
+  {a\Ass 1}\\
+%
+  \lrefstep{(15)}
+  {\textbf{seq}}
+  {
+  \nt{a,i,r:\left[
+    \begin{array}{l}
+      Inv\subst{r+1}{r}\And a=1 ,(a=1 \text{ }\And \not\Exi{k \in 2..(r-1)}{r\textbf{ mod }k=0})\\
+      \Or(a=0 \And \Exi{k \in 2..(r-1)}{r\textbf{ mod }k=0}))
+    \end{array}
+  \right]}{(17)};\\
+  &\nt{a,i,r:\left[
+    \begin{array}{l}
+      (a=1 \text{ }\And \not\Exi{k \in 2..(r-1)}{r\textbf{ mod }k=0})\\\Or(a=0 \And \Exi{k \in 2..(r-1)}{r\textbf{ mod }k=0})),
+      Inv
+    \end{array}
+  \right]}{(18)}
+  }\\
+%
+  \lrefstep{(18)}{\textbf{if}}
+  {\IF~a=1\\
+  &\THEN~\nt{a,i,r:[a=1\And\pre(18),\post(18)]}{(19)}\\
+  &\ELSE~\nt{p:[a\neq1\And\pre(18),\post(18)]}{(20)}\\
   &\FI}\\
 %
 \end{align*}
@@ -167,5 +221,5 @@ We gather the code for the procedure body of $\emirp$:
 \section{Task 3 - C Code}
 \label{sec:task-1}
 \lstinputlisting{emirp.c}
-
+\remark{- Write something about how the C code relates.\\- Compare with examples}
 \end{document}
