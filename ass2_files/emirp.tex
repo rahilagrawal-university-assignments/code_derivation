@@ -14,13 +14,9 @@
 \newcommand{\myjustification}[2][\Equiv]{{}#1{} &{\bcolor\langle\text{#2}\rangle}\\}
 \newcommand{\remark}[1]{{\sffamily\color{blue}{#1}}}
 \newcommand{\myImplies}[2]{\color{red}#1\color{blue}\Implies\color{red}#2\color{black}}
-
-
-\newcommand{\sorted}[3]{\mathit{s'ed}(#1[#2..#3])}
-\newcommand{\sort}[3]{\mathit{sort}(#1[#2..#3])}
 \newcommand{\pre}{\mathit{pre}}
 \newcommand{\post}{\mathit{post}}
-\newcommand{\bs}{\textsc{bs}\xspace}
+\newcommand{\emirp}{\textsc{emirp}\xspace}
 
 
 \title{Assignment 2 - Emirps}
@@ -39,7 +35,7 @@
 \section{Task 2 - Derivation}
 \label{sec:task-1}
 \begin{align*}
-  &\PROC~\bs(\VALUE~n, \RESULT~r)\cdot{}\\
+  &\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
   &\qquad  \nt{n,r:\left[
     \begin{array}{l}
       n>0, Emirp(r,n)
@@ -49,77 +45,123 @@
   \lrefstep{(1)}
   {\textbf{c-frame}}
   {
-  \nt{p:\left[
-  \begin{array}{l}
-    l\in 0..N\And r\in -1..N-1\And l\leq r+1 \And \sorted a0{N-1}\\
-    (a[p]=v\And p\in l..r)\Or (p=-1\And\All{x\in l..r}{a[x]\neq v})
-  \end{array}
+  \nt{r:\left[
+    \begin{array}{l}
+      n>0, Emirp(r,n)
+    \end{array}
   \right]}{(2)}}\\
-% 
+%
+  \lrefstep{(2)}
+  {\textbf{i-loc}}
+  {
+  \nt{i,r:\left[
+    \begin{array}{l}
+      n>0, Emirp(r,n)
+    \end{array}
+  \right]}{(3)}}\\
+%
+  \lrefstep{(3)}
+  {\textbf{seq}}
+  {
+  \nt{i,r:\left[
+    \begin{array}{l}
+      n>0, i=0 \And n>0
+    \end{array}
+  \right]}{(4)};\\
+  &\nt{i:\left[
+    \begin{array}{l}
+      i=0 \And n>0, Emirp(r,n)
+    \end{array}
+  \right]}{(5)}}\\
+%
+  \lrefstep{(4)}
+  {\textbf{c-frame}}
+  {
+  \nt{i:\left[
+    \begin{array}{l}
+      n>0, i=1 \And n>0
+    \end{array}
+  \right]}{}}\\
+%
+  \refstep{\textbf{ass - \color{blue}(1)}}
+  {i\Ass 1}\\
+%
+  \lrefstep{(5)}
+  {\textbf{seq}}
+  {
+  \nt{i,r:\left[
+    \begin{array}{l}
+      i=1 \And n>0, Inv
+    \end{array}
+  \right]}{(6)};\\
+  &\nt{i,r:\left[
+    \begin{array}{l}
+      Inv, Inv \And i=n
+    \end{array}
+  \right]}{(7)};\\
+  &\nt{i,r:\left[
+    \begin{array}{l}
+      Inv \And i=n, Emirp(r,n)
+    \end{array}
+  \right]}{(8)}}\\
+%
+  \lrefstep{(6)}
+  {\textbf{w-pre, c-frame - \color{blue}(2)}}
+  {
+  \nt{r:\left[
+    \begin{array}{l}
+      Inv\subst{13}{r}, Inv
+    \end{array}
+  \right]}{(9)}}\\
+%
+  \refstep{\textbf{ass - \color{blue}(3)}}
+  {r\Ass 13}\\
+%
+  \lrefstep{(7)}
+  {\textbf{while}}
+  {
+  \WHILE~i\neq n~\DO\\
+  &\qquad \nt{i,r:\left[
+    \begin{array}{l}
+      Inv\And i\neq n, Inv
+    \end{array}
+  \right]}{(10)}\\
+  &\OD;}\\
+%
+  \lrefstep{(10)}
+  {\textbf{seq}}
+  {
+  \nt{r:\left[
+    \begin{array}{l}
+      Inv\And i\neq n, Inv\subst{r+1}{r}
+    \end{array}
+  \right]}{(11)};\\
+  &\nt{r:\left[
+    \begin{array}{l}
+      Inv\subst{r+1}{r}, Inv
+    \end{array}
+  \right]}{(12)}}\\
+\end{align*}
+\begin{align*}
+\lrefstep{(11)}
+  {\textbf{i-loc}}
+  {
+  \nt{a,i,r:\left[
+    \begin{array}{l}
+      Inv\subst{r+1}{r}, Inv
+    \end{array}
+  \right]}{(13)}}\\
+%
   \refstep{\textbf{if}}
   {\IF~l=r+1\\
   &\THEN~\nt{p:[l=r+1\And\pre(2),\post(2)]}{(3)}\\
   &\ELSE~\nt{p:[l\neq r+1\And\pre(2),\post(2)]}{(4)}\\
   &\FI}\\
 %
-  \lrefstep{(3)}
-  {\textbf{ass}, justified below in Sect.~\ref{sec:proof3ass}}
-  {p\Ass -1}\\
-%
-  \lrefstep{(4)}
-  {\textbf{if}}
-  {\IF~a[\nicefrac{(r+l)}2]=v\\
-  &\THEN~\nt{p:[a[\nicefrac{(r+l)}2]=v    \And\pre(4),\post(4)]}{(5)}\\
-  &\ELSE~\nt{p:[a[\nicefrac{(r+l)}2]\neq v\And\pre(4),\post(4)]}{(6)}\\
-  &\FI}\\
-%
-  \lrefstep{(5)}
-  {\textbf{ass}, justified below in Sect.~\ref{sec:proof5ass}}
-  {p\Ass \nicefrac{(r+l)}2}\\
-%
-  \lrefstep{(6)}
-  {\textbf{if}}
-  {\IF~a[\nicefrac{(r+l)}2]<v\\
-  &\THEN~\nt{p:[a[\nicefrac{(r+l)}2]<v     \And\pre(6),\post(6)]}{(7)}\\
-  &\ELSE~\nt{p:[a[\nicefrac{(r+l)}2]\not< v\And\pre(6),\post(6)]}{(8)}\\
-  &\FI}\\
-% 
-  \lrefstep{(7)}
-  {\textbf{s-post}, justified below in Sect.~\ref{sec:proof7post}}
-  {p:[\pre(7),(\post(2))\subst{\nicefrac{(r+l)}2+1}l]}\\
-% 
-  \refstep
-  {\textbf{w-pre}, justified below in Sect.~\ref{sec:proof7pre}}
-  {p:[(\pre(1))\subst{\nicefrac{(r+l)}2+1}l,(\post(2))\subst{\nicefrac{(r+l)}2+1}l}\\
-% 
-  \refstep
-  {\textbf{proc}}
-  {\bs(a,N,v,\nicefrac{(r+l)}2+1,r,p)}\\
-% 
-  \lrefstep{(8)}
-  {\textbf{s-post}, justified below in Sect.~\ref{sec:proof8post}}
-  {p:[\pre(8),(\post(2))\subst{\nicefrac{(r+l)}2-1}r]}\\
-% 
-  \refstep
-  {\textbf{w-pre}, justified below in Sect.~\ref{sec:proof8pre}}
-  {p:[(\pre(1))\subst{\nicefrac{(r+l)}2-1}r,(\post(2))\subst{\nicefrac{(r+l)}2-1}r}\\
-% 
-  \refstep
-  {\textbf{proc}}
-  {\bs(a,N,v,l,\nicefrac{(r+l)}2-1,p)}
 \end{align*}
-We gather the code for the procedure body of $\bs$:
+We gather the code for the procedure body of $\emirp$:
 \begin{tabbing}% unfortunately, tabbing doesn't do maths
-\qquad\=$\IF~l=r+1$\+\\
-$\THEN~p\Ass -1$\\
-$\ELSE~$\=$\IF~a[\nicefrac{(r+l)}2]=v$\+\\
-$\THEN~p\Ass \nicefrac{(r+l)}2$\\
-$\ELSE~$\=$\IF~a[\nicefrac{(r+l)}2]<v$\+\\
-$\THEN~\bs(a,N,v,\nicefrac{(r+l)}2+1,r,p)$\\
-$\ELSE~\bs(a,N,v,l,\nicefrac{(r+l)}2-1,p)$\\
-$\FI$\-\\
-$\FI$\-\\
-$\FI$
+
 \end{tabbing}
 
 \section{Task 3 - C Code}
