@@ -105,7 +105,7 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
   {
   \nt{i,r,x:\left[
     \begin{array}{l}
-      i=1 \And n>0, Inv
+      i=1\And x=13 \And n>0, Inv
     \end{array}
   \right]}{(6)};\\
   &\nt{i,r,x:\left[
@@ -472,8 +472,8 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
 %
   \lrefstep{(9)}{\textbf{if}}
   {\myCode{\IF~r\text{ }\textbf{mod}\text{ }j = 0}\\
-  &\myCode{\THEN}~\nt{a:[r\text{ }\textbf{mod}\text{ }j=0\And\pre(10),\post(10)]}{(11)}\\
-  &\myCode{\ELSE}~\nt{a:[r\text{ }\textbf{mod}\text{ }j\neq0\And\pre(10),\post(10)]}{(12)}\\
+  &\myCode{\THEN}~\nt{a:[r\text{ }\textbf{mod}\text{ }j=0\And\pre(9),\post(9)]}{(11)}\\
+  &\myCode{\ELSE}~\nt{a:[r\text{ }\textbf{mod}\text{ }j\neq0\And\pre(9),\post(9)]}{(12)}\\
   &\myCode{\FI;}}\\
 %
   \lrefstep{(10)}
@@ -481,27 +481,27 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
   {\myCode{j \Ass j+1}}\\
 %
   \lrefstep{(11)}
-  {\textbf{w-pre - \color{blue}(22)}}
+  {\textbf{w-pre - \color{blue}(25)}}
   {r,a,j:\left[
     \begin{array}{l}
       Inv_{2}\subst{0}{a}\subst{j+1}{j}, post(11)
     \end{array}
   \right]}\\
 %  
-  \refstep{\textbf{ass - \color{blue}{(23)}}}{
+  \refstep{\textbf{ass - \color{blue}{(26)}}}{
     \myCode{a \Ass 0}
   }\\
 \end{align*}
 \begin{align*}
   \lrefstep{(12)}
-  {\textbf{w-pre - \color{blue}(24)}}
+  {\textbf{w-pre - \color{blue}(27)}}
   {r,a,j:\left[
     \begin{array}{l}
       Inv_{2}, post(11)
     \end{array}
   \right]}\\
 %
-  \refstep{\textbf{skip - \color{blue}{(25)}}}
+  \refstep{\textbf{skip - \color{blue}{(28)}}}
   {
     \myCode{skip}
   }
@@ -538,62 +538,87 @@ Also, we gather the code for the procedure body of $\isPrime$:
 \end{gather*}
 We have derived our code. However we need to prove \textbf{\color{blue}some }\color{black} refinements.
 
-
 \subsection{\color{blue}Implication 1\color{black}: $\myRefines{(4)}{i\Ass 1}$}
 \begin{align*}
-&\text{To prove: } i = i_{0} \And n > 0 \Implies (i=1 \And n=0)\subst{1}{i}\\\\
+&\text{To prove: } i = i_{0} \And n > 0 \Implies (i=1 \And x=13 \And n>0)\subst{1}{i}\subst{13}{x}\\\\
 %
 &\text{Proof:}\\
 %
 &LHS =  i = i_{0} \And n > 0 \\
 %
-\myjustification[\Implies]{1=1 is vacuously true}
-&1=1 \And i=i_{0} \And n>0\\
+\myjustification[\Implies]{1=1 $\And$ 13=13 is vacuously true}
+&1=1 \And 13=13 \And i=i_{0} \And n>0\\
 %
-\myjustification[\Implies]{$A \And B \And C \Implies A\And B$}
-&1=1 \And n>0\\
+\myjustification[\Implies]{$A \And B \And C \And D\Implies A\And B \And C$}
+&1=1 \And 13=13 \And n>0\\
 %
-\myjustification[\Implies]{$1=1 \And i=1 \Implies \subst{1}{i}$}
-&(i=1\And n>0)\subst{1}{i}\\
+\myjustification[\Implies]{$1=1 \And i=1 \Implies \subst{1}{i}, 13=13 \And x=13 \Implies \subst{13}{x}$}
+&(i=1\And n>0)\subst{1}{i}\subst{13}{x}\\
 %
 \myjustification[\Implies]{clearly}
 &RHS
 \end{align*}
-\subsection{\color{blue}Implication 2\color{black}: $\myRefines{(8)}{(9)}$}
-To prove w-pre we need to prove: $pre \Implies pre^{'}$\\
+
+\subsection{\color{blue}Implication 2\color{black}: $\myRefines{(6)}{r,x: [Inv\subst{13}{x}, Inv]}$}
+To prove w-pre we need to prove: $pre \Implies pre^{'}$
 \begin{align*}
-&\text{To prove: } i=1 \And n>0 \Implies Inv\subst{13}{r}\\\\
+&\text{To prove: } i=1 \And n>0 \And x=13 \Implies Inv\subst{13}{r}\\\\
 %
 &\text{Proof:}\\
 %
-&LHS = i=1 \And n>0\\
+&LHS = i=1 \And n>0 \And x=13\\
 %
-\myjustification[\Implies]{$A \And B \Implies A$}
-&i=1\\
+\myjustification[\Implies]{$A \And B \And C \Implies A \And B$}
+&i=1 \And x=13 \\
 %
-\myjustification[\Implies]{We know that 13 is the 1st emirp and from our definition of emirp}
-&i=1 \And Emirp(13,1)\\
+\myjustification[\Implies]{We know that 13 is the 1st emirp from our definition of emirp, also 13$\geq$r in this case}
+&i=1 \And Emirp(13,1) \And x=13 \And 13\geq r\\
 %
-\myjustification[\Implies]{This is our Inv with 13 substituted for r}
-&Inv\subst{13}{r}\\
+\myjustification[\Implies]{This is our Inv with 13 substituted for x}
+&Inv\subst{13}{x}\\
 %
 \myjustification[\Implies]{clearly}
 &RHS\\
 \end{align*}
-\subsection{\color{blue}Implication 3\color{black}: $\myRefines{(9)}{r \Ass 13}$}
+
+\subsection{\color{blue}Implication 3\color{black}: $\myRefines{r,x:[Inv\subst{13}{x}, Inv]}{x \Ass 13}$}
 \begin{align*}
-&\text{To prove: } r=r_{0} \And Inv\subst{13}{r} \Implies Inv\subst{13}{r}\\\\
+&\text{To prove: } x=x_{0} \And Inv\subst{13}{x} \Implies Inv\subst{13}{x}\\\\
 %
 &\text{Proof:}\\
 %
-&LHS = r=r_{0} \And Inv\subst{13}{r}\\
+&LHS = x=x_{0} \And Inv\subst{13}{x}\\
 %
 \myjustification[\Implies]{$A \And B \Implies A$}
-&Inv\subst{13}{r}\\
+&Inv\subst{13}{x}\\
 \myjustification[\Implies]{clearly}
 &RHS\\
 \end{align*}
-\subsection{\color{blue}Implication 4\color{black}: $\myRefines{(11)}{skip}$}
+
+\subsection{\color{blue}Implication 4\color{black}: $\myRefines{}{}$}
+\begin{align*}
+&\text{To prove:} BLAH \\\\
+%
+&\text{Proof:}\\
+%
+&LHS = BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&RHS\\
+\end{align*}
+
+\subsection{\color{blue}Implication 5\color{black}: $\myRefines{(10)}{skip}$}
 To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 \begin{align*}
 &\text{To prove: } Emirp(r, n) \Implies Emirp(r,n)\subst{r_{0}}{r}\\\\
@@ -608,9 +633,11 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 \myjustification[\Implies]{clearly}
 &RHS\\
 \end{align*}
+
+
 \subsection{\color{blue}Implication 6\color{black}: $\myRefines{ Inv\subst{x+1}{x}, Inv\subst{x+1}{x}\And a=1}{a \Ass 1}$}
 \begin{align*}
-&\text{To prove: a=a}_{0} \And Inv\subst{r+1}{r} \Implies (a=1 \And Inv\subst{r+1}{r})\subst{1}{a}\\\\
+&\text{To prove: }a=a_{0} \And Inv\subst{r+1}{r} \Implies (a=1 \And Inv\subst{r+1}{r})\subst{1}{a}\\\\
 %
 &\text{Proof:}\\
 %
@@ -628,27 +655,512 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 \myjustification[\Implies]{clearly}
 &RHS\\
 \end{align*}
-\subsection{\color{blue}Implication 7\color{black}: $\myRefines{(20)}{s \Ass 0}$}
+
+\subsection{\color{blue}Implication 7\color{black}: $\myRefines{Inv\subst{x+1}{x}, Inv\subst{x+1}{x}\And a=1}{a \Ass 1}$}
 \begin{align*}
-&\text{To prove: } s=s_{0} \And (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\Or\\(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})) \Implies s=0\subst{0}{s}\\\\
+&\text{To prove: } a=a_{0} \And Inv\subst{x+1}{x} \Implies (a=1 \And Inv\subst{x+1}{x})\subst{1}{a}\\\\
 %
 &\text{Proof:}\\
 %
-&LHS = s=s_{0} \And (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\\\Or(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0}))\\
+&LHS = a=a_{0} \And Inv\subst{x+1}{x}\\
 %
-\myjustification[\Implies]{0=0 is vacuously true}
-&0=0 \And s=s_{0} \And (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\\\Or(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0}))\\
+\myjustification[\Implies]{1=1 is vacuously true}
+&1=1 \And a=a_{0} \And Inv\subst{x+1}{x}\\
 %
-\myjustification[\Implies]{$A \And B \And C \Implies A$}
-&0=0\\
+\myjustification[\Implies]{$A \And B \And C \Implies A\And B$}
+&1=1 \And Inv\subst{x+1}{x}\\
 %
-&\myjustification[\Implies]{$0=0 \And s=0 \Implies \subst{1}{s}$}
-(s=0)\subst{0}{s}\\
+\myjustification[\Implies]{$1=1 \And a=1 \Implies \subst{1}{i}$}
+&(a=1\And Inv\subst{x+1}{x})\subst{1}{a}\\
 %
 \myjustification[\Implies]{clearly}
 &RHS\\
 \end{align*}
 
+\subsection{\color{blue}Implication 8\color{black}: $\myRefines{}{}$}
+\begin{align*}
+&\text{To prove:} BLAH \\\\
+%
+&\text{Proof:}\\
+%
+&LHS = BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&RHS\\
+\end{align*}
+
+\subsection{\color{blue}Implication 9\color{black}: $\myRefines{}{}$}
+\begin{align*}
+&\text{To prove:} BLAH \\\\
+%
+&\text{Proof:}\\
+%
+&LHS = BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&RHS\\
+\end{align*}
+
+\subsection{\color{blue}Implication 10\color{black}: $\myRefines{}{}$}
+\begin{align*}
+&\text{To prove:} BLAH \\\\
+%
+&\text{Proof:}\\
+%
+&LHS = BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&RHS\\
+\end{align*}
+
+\subsection{\color{blue}Implication 11\color{black}: $\myRefines{(18)}{s \Ass 0}$}
+\begin{align*}
+&\text{To prove: } s=s_{0} \And (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\Or\\
+&(a=0 \And\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})) \Implies s=0\subst{0}{s}\\\\
+%
+&\text{Proof:}\\
+%
+&LHS = s=s_{0} \And (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\Or\\
+&(a=0 \And\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0}))\\
+%
+\myjustification[\Implies]{0=0 is vacuously true}
+&0=0 \And s=s_{0} \And (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\Or\\
+&(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0}))\\
+%
+\myjustification[\Implies]{$A \And B \And C \Implies A$}
+&0=0\\
+%
+\myjustification[\Implies]{$0=0 \And s=0 \Implies \subst{1}{s}$}
+&(s=0)\subst{0}{s}\\
+%
+\myjustification[\Implies]{clearly}
+&RHS\\
+\end{align*}
+
+
+\subsection{\color{blue}Implication 12\color{black}: $\myRefines{}{}$}
+\begin{align*}
+&\text{To prove:} BLAH \\\\
+%
+&\text{Proof:}\\
+%
+&LHS = BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&RHS\\
+\end{align*}
+
+\subsection{\color{blue}Implication 13\color{black}: $\myRefines{}{}$}
+\begin{align*}
+&\text{To prove:} BLAH \\\\
+%
+&\text{Proof:}\\
+%
+&LHS = BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&RHS\\
+\end{align*}
+
+\subsection{\color{blue}Implication 14\color{black}: $\myRefines{}{}$}
+\begin{align*}
+&\text{To prove:} BLAH \\\\
+%
+&\text{Proof:}\\
+%
+&LHS = BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&RHS\\
+\end{align*}
+
+\subsection{\color{blue}Implication 15\color{black}: $\myRefines{}{}$}
+\begin{align*}
+&\text{To prove:} BLAH \\\\
+%
+&\text{Proof:}\\
+%
+&LHS = BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&RHS\\
+\end{align*}
+
+\subsection{\color{blue}Implication 16\color{black}: $\myRefines{}{}$}
+\begin{align*}
+&\text{To prove:} BLAH \\\\
+%
+&\text{Proof:}\\
+%
+&LHS = BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&RHS\\
+\end{align*}
+
+\subsection{\color{blue}Implication 17\color{black}: $\myRefines{}{}$}
+\begin{align*}
+&\text{To prove:} BLAH \\\\
+%
+&\text{Proof:}\\
+%
+&LHS = BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&RHS\\
+\end{align*}
+
+\subsection{\color{blue}Implication 18\color{black}: $\myRefines{}{}$}
+\begin{align*}
+&\text{To prove:} BLAH \\\\
+%
+&\text{Proof:}\\
+%
+&LHS = BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&RHS\\
+\end{align*}
+
+\subsection{\color{blue}Implication 19\color{black}: $\myRefines{}{}$}
+\begin{align*}
+&\text{To prove:} BLAH \\\\
+%
+&\text{Proof:}\\
+%
+&LHS = BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&RHS\\
+\end{align*}
+
+\subsection{\color{blue}Implication 20\color{black}: $\myRefines{}{}$}
+\begin{align*}
+&\text{To prove:} BLAH \\\\
+%
+&\text{Proof:}\\
+%
+&LHS = BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&RHS\\
+\end{align*}
+
+\subsection{\color{blue}Implication 21\color{black}: $\myRefines{}{}$}
+\begin{align*}
+&\text{To prove:} BLAH \\\\
+%
+&\text{Proof:}\\
+%
+&LHS = BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&RHS\\
+\end{align*}
+
+\subsection{\color{blue}Implication 22\color{black}: $\myRefines{}{}$}
+\begin{align*}
+&\text{To prove:} BLAH \\\\
+%
+&\text{Proof:}\\
+%
+&LHS = BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&RHS\\
+\end{align*}
+
+\subsection{\color{blue}Implication 23\color{black}: $\myRefines{}{}$}
+\begin{align*}
+&\text{To prove:} BLAH \\\\
+%
+&\text{Proof:}\\
+%
+&LHS = BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&RHS\\
+\end{align*}
+
+\subsection{\color{blue}Implication 24\color{black}: $\myRefines{}{}$}
+\begin{align*}
+&\text{To prove:} BLAH \\\\
+%
+&\text{Proof:}\\
+%
+&LHS = BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&RHS\\
+\end{align*}
+
+\subsection{\color{blue}Implication 25\color{black}: $\myRefines{}{}$}
+\begin{align*}
+&\text{To prove:} BLAH \\\\
+%
+&\text{Proof:}\\
+%
+&LHS = BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&RHS\\
+\end{align*}
+
+\subsection{\color{blue}Implication 26\color{black}: $\myRefines{[Inv_{2}\subst{0}{a}\subst{j+1}{j]}, post(11)}{a\Ass 0}$}
+\begin{align*}
+&\text{To prove:} BLAH \\\\
+%
+&\text{Proof:}\\
+%
+&LHS = BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&RHS\\
+\end{align*}
+
+\subsection{\color{blue}Implication 27\color{black}: $\myRefines{(12)}{[Inv_{2}, post(11)]}$}
+\begin{align*}
+&\text{To prove:} BLAH \\\\
+%
+&\text{Proof:}\\
+%
+&LHS = BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&RHS\\
+\end{align*}
+
+\subsection{\color{blue}Implication 28\color{black}: $\myRefines{[Inv_{2}, post(11)]}{skip}$}
+\begin{align*}
+&\text{To prove:} BLAH \\\\
+%
+&\text{Proof:}\\
+%
+&LHS = BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+\myjustification[\Implies]{BLAH}
+&RHS\\
+\end{align*}
 
 \section{Task 3 - C Code}
 \label{sec:task-3}
