@@ -33,13 +33,29 @@
 
 \section{Task 1 - Specification Statement}
 \label{sec:task-1}
-\remark{Notes,x:\\-Write neatly\\-make sure grammar is correct\\-look at examples for default spec structure.}\\\\
-\remark{Define an Emirp using 2 functions - reverse and prime. Make these functions match with their given specs in order to help prove implications.}\\\\
-Pre condition,x: $n$ is a positive number - $n>0$\\\\
-Post condition $EMIRP(r,n)$ where $r$ is the $n^{th}$ emirp(where emirp is as defined above).
-Therefore our program can be specified by,x:\\
-$\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
- \qquad  \nt{n,r,x:\left[
+A prime number is a positive integer that is only divisible by 1 and itself. Therefore, we can say that a number $r$ is prime if it is not divisible by any number between 2 and $r-1$ inclusive.\\\\
+Therefore, we can define a primality check function as follows:
+\begin{gather*}
+  \color{blue}isPrime(r) = 
+     \begin{cases}
+       \text{true} &\quad \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0}\\
+       \text{false} &\quad  \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0}\\ 
+     \end{cases}
+\end{gather*}\\
+The $reversen(r,s)$ function provided (and proven true) in 18s1 Assignment 2 Spec can be used to occupy the reverse of a number $r$ in a variable called $s$.\\\\
+Having defined a primality check function $isPrime(r,a)$ and a function to store the reverse of a number $r$ in $s$, we define an $emirp$.\\\\
+An $emirp$ is a prime number whose reversal is also prime, but which is not a palindromic prime.\\\\
+Therefore, if $EMIRP(r,n)$ states that $r$ is the $n^{th}$ $emirp$,where $n$ is a positive integer, then:
+\begin{gather*}
+  \color{blue}EMIRP(r,n) = 
+     \begin{cases}
+       \text{true} &\quad {isPrime(r) \And reverse(r,s) \And isPrime(s) \And r\neq s}\\
+       \text{false} &\quad  otherwise\\
+     \end{cases}
+\end{gather*}\\
+We want to find the $n^{th}$ $emirp$. Having defined the limitations on $n$ ($n>0$) and described what it means for a $r$ to be the $n^{th}$, we can specify our program with by:\\
+$\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}
+ \nt{n,r,x:\left[
     \begin{array}{l}
       n>0, Emirp(r,n)
     \end{array}
@@ -479,7 +495,8 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
   \lrefstep{(10)}
   {\textbf{ass - \color{blue}{(24)}}}
   {\myCode{j \Ass j+1}}\\
-%
+\end{align*}
+\begin{align*}
   \lrefstep{(11)}
   {\textbf{w-pre - \color{blue}(25)}}
   {r,a,j:\left[
@@ -491,8 +508,6 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
   \refstep{\textbf{ass - \color{blue}{(26)}}}{
     \myCode{a \Ass 0}
   }\\
-\end{align*}
-\begin{align*}
   \lrefstep{(12)}
   {\textbf{w-pre - \color{blue}(27)}}
   {r,a,j:\left[
