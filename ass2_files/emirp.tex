@@ -123,7 +123,7 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
   {\textbf{w-pre, c-frame - \color{blue}(2)}}
   {r,x:\left[
     \begin{array}{l}
-      Inv\subst{13}{x}, Inv
+      Inv\subst{13}{r}, Inv
     \end{array}
   \right]}\\
 %
@@ -581,16 +581,16 @@ To prove w-pre we need to prove: $pre \Implies pre^{'}$
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 3\color{black}: $\myRefines{r,x:[Inv\subst{13}{x}, Inv]}{x \Ass 13}$}
+\subsection{\color{blue}Implication 3\color{black}: $\myRefines{r,x:[Inv\subst{13}{r}, Inv]}{r \Ass 13}$}
 \begin{align*}
-&\text{To prove: } x=x_{0} \And Inv\subst{13}{x} \Implies Inv\subst{13}{x}\\\\
+&\text{To prove: } r=r_{0} \And Inv\subst{13}{r} \Implies Inv\subst{13}{r}\\\\
 %
 &\text{Proof:}\\
 %
-&LHS = x=x_{0} \And Inv\subst{13}{x}\\
+&LHS = r=r_{0} \And Inv\subst{13}{r}\\
 %
 \myjustification[\Implies]{$A \And B \Implies A$}
-&Inv\subst{13}{x}\\
+&Inv\subst{13}{r}\\
 \myjustification[\Implies]{clearly}
 &RHS\\
 \end{align*}
@@ -635,24 +635,26 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 \end{align*}
 
 
-\subsection{\color{blue}Implication 6\color{black}: $\myRefines{ Inv\subst{x+1}{x}, Inv\subst{x+1}{x}\And a=1}{a \Ass 1}$}
+\subsection{\color{blue}Implication 6\color{black}: $\myRefines{}{}$}
 \begin{align*}
-&\text{To prove: }a=a_{0} \And Inv\subst{r+1}{r} \Implies (a=1 \And Inv\subst{r+1}{r})\subst{1}{a}\\\\
+&\text{To prove:} BLAH \\\\
 %
 &\text{Proof:}\\
 %
-&LHS = a=a_{0} \And Inv\subst{r+1}{r}\\
+&LHS = BLAH\\
 %
-\myjustification[\Implies]{1=1 is vacuously true}
-&1=1 \And a=a_{0} \And Inv\subst{r+1}{r}\\
+\myjustification[\Implies]{BLAH}
+&BLAH\\
 %
-\myjustification[\Implies]{$A \And B \And C \Implies A\And B$}
-&1=1 \And Inv\subst{r+1}{r}\\
 %
-\myjustification[\Implies]{$1=1 \And a=1 \Implies \subst{1}{i}$}
-&(a=1\And Inv\subst{r+1}{r})\subst{1}{a}\\
+\myjustification[\Implies]{BLAH}
+&BLAH\\
 %
-\myjustification[\Implies]{clearly}
+%
+\myjustification[\Implies]{BLAH}
+&BLAH\\
+%
+\myjustification[\Implies]{BLAH}
 &RHS\\
 \end{align*}
 
@@ -670,7 +672,7 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 \myjustification[\Implies]{$A \And B \And C \Implies A\And B$}
 &1=1 \And Inv\subst{x+1}{x}\\
 %
-\myjustification[\Implies]{$1=1 \And a=1 \Implies \subst{1}{i}$}
+\myjustification[\Implies]{$1=1 \Implies (a=1 \And Inv\subst{x}{x+1})\subst{1}{i} \text{ (Since, Inv does not involve a)}$}
 &(a=1\And Inv\subst{x+1}{x})\subst{1}{a}\\
 %
 \myjustification[\Implies]{clearly}
@@ -763,7 +765,7 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 \myjustification[\Implies]{$A \And B \And C \Implies A$}
 &0=0\\
 %
-\myjustification[\Implies]{$0=0 \And s=0 \Implies \subst{1}{s}$}
+\myjustification[\Implies]{$0=0 \Implies (s=0)\subst{1}{s}$}
 &(s=0)\subst{0}{s}\\
 %
 \myjustification[\Implies]{clearly}
