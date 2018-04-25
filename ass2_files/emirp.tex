@@ -75,23 +75,23 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
   {
   \nt{i,r:\left[
     \begin{array}{l}
-      n>0, i=0 \And n>0
+      n>0, i=1 \And n>0
     \end{array}
   \right]}{(4)};\\
   &\nt{i:\left[
     \begin{array}{l}
-      i=0 \And n>0, Emirp(r,n)
+      i=1 \And n>0, Emirp(r,n)
     \end{array}
   \right]}{(5)}}\\
 %
   \lrefstep{(4)}
   {\textbf{c-frame}}
   {
-  \nt{i:\left[
+  i:\left[
     \begin{array}{l}
       n>0, i=1 \And n>0
     \end{array}
-  \right]}{}}\\
+  \right]}\\
 %
   \refstep{\textbf{ass - \color{blue}(1)}}
   {i\Ass 1}\\
@@ -138,6 +138,18 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
   \right]}{(10)}\\
   &\OD;}\\
 %
+  \lrefstep{(8)}
+  {\textbf{w-pre, c-frame}}
+  {
+  \nt{r:\left[
+    \begin{array}{l}
+      \emirp(r,n), \emirp(r,n)
+    \end{array}
+  \right]}{(11)}}\\
+%
+  \refstep{\textbf{skip - \color{blue}(4)}}
+  {skip}\\
+%
   \lrefstep{(10)}
   {\textbf{seq}}
   {
@@ -154,15 +166,10 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
 \end{align*}
 \begin{align*}
   \lrefstep{(11)}
-  {\textbf{i-loc}}
-  {
-  \nt{a,i,r:\left[
-    \begin{array}{l}
-      Inv\subst{r+1}{r}, Inv
-    \end{array}
-  \right]}{(13)}}\\
+  {\textbf{ass - \color{blue}(5)}}
+  {r\Ass{r+1}}\\
 %
-  \lrefstep{(13)}
+  \lrefstep{(12)}
   {\textbf{seq}}
   {
   \nt{a,i,r:\left[
@@ -176,7 +183,7 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
     \end{array}
   \right]}{(15)}
   }\\
-%
+%\color{blue}(6)
   \lrefstep{(14)}
   {\textbf{c-frame}}
   {
@@ -186,7 +193,7 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
     \end{array}
   \right]}{(16)}}\\
 %
-  \refstep{\textbf{ass - \color{blue}(4)}}
+  \refstep{\textbf{ass - \color{blue}(6)}}
   {a\Ass 1}\\
 %
   \lrefstep{(15)}
@@ -212,6 +219,59 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
   &\ELSE~\nt{p:[a\neq1\And\pre(18),\post(18)]}{(20)}\\
   &\FI}\\
 %
+  \lrefstep{(19)}
+  {\textbf{i-loc}}
+  {
+  a,i,r,s:\left[
+    \begin{array}{l}
+      \pre(19), \post(19)  
+    \end{array}
+  \right]}\\
+%
+  \refstep{\textbf{seq}}
+  {
+  \nt{s:\left[
+    \begin{array}{l}
+      \pre(19), \post(19)\And s=0
+    \end{array}
+  \right]}{(21)};\\
+  &\nt{a,i,r,s: \left[
+    \begin{array}{l}
+      \post(19)\And s=0, \post(19)
+    \end{array}
+  \right]}{(22)}}\\
+%
+  \lrefstep{(21)}{\textbf{ass - \color{blue}(7)}}
+  {s\Ass 0}\\  
+%
+  \lrefstep{(22)}{\textbf{seq}}
+  {
+  \nt{s:\left[
+    \begin{array}{l}
+      \pre(22), \textrm{\remark{reversen function post condition}}
+    \end{array}
+  \right]}{(23)};\\
+  &\nt{a,i,r,s: \left[
+    \begin{array}{l}
+      \textrm{\remark{reversen function post condition}}, \post(22)
+    \end{array}
+  \right]}{(24)}}\\
+%
+  \lrefstep{(23)}{\textbf{w-pre}}
+  {
+  s:\left[
+    \begin{array}{l}
+      \textrm{\remark{reverse function pre condition}}, \textrm{\remark{reversen function post condition}}
+    \end{array}
+  \right]}\\
+%
+  \refstep{\textbf{seq}}
+  {
+  \nt{s:\left[
+    \begin{array}{l}
+      \pre(19), \post(19)\And s=0
+    \end{array}
+  \right]}{(21)}}\\
 \end{align*}
 We gather the code for the procedure body of $\emirp$:
 \begin{tabbing}% unfortunately, tabbing doesn't do maths
