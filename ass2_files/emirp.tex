@@ -64,7 +64,7 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
   \lrefstep{(2)}
   {\textbf{i-loc}}
   {
-  \nt{i,x, r,x:\left[
+  \nt{i,r,x:\left[
     \begin{array}{l}
       n>0, Emirp(r,n)
     \end{array}
@@ -73,7 +73,7 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
   \lrefstep{(3)}
   {\textbf{seq}}
   {
-  \nt{i,x,r,x:\left[
+  \nt{i,x,r:\left[
     \begin{array}{l}
       n>0, i=1 \And x=13 \And n>0
     \end{array}
@@ -87,7 +87,7 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
   \lrefstep{(4)}
   {\textbf{c-frame}}
   {
-  i,x,x:\left[
+  i,x:\left[
     \begin{array}{l}
       n>0, i=1 \And x=13 \And n>0
     \end{array}
@@ -110,7 +110,7 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
       Inv, Inv \And i=n
     \end{array}
   \right]}{(7)};\\
-  &\nt{i,r,x ,x:\left[
+  &\nt{i,r,x:\left[
     \begin{array}{l}
       Inv \And i=n, Emirp(r,n)
     \end{array}
@@ -118,12 +118,11 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
 %
   \lrefstep{(6)}
   {\textbf{w-pre, c-frame - \color{blue}(2)}}
-  {
-  \nt{r,x:\left[
+  {r,x:\left[
     \begin{array}{l}
       Inv\subst{13}{x}, Inv
     \end{array}
-  \right]}{(9)}}\\
+  \right]}\\
 %
   \refstep{\textbf{ass - \color{blue}(3)}}
   {r\Ass 13}\\
@@ -136,56 +135,56 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
     \begin{array}{l}
       Inv\And i\neq n, Inv
     \end{array}
-  \right]}{(10)}\\
+  \right]}{(9)}\\
   &\OD;}\\
 %
   \lrefstep{(8)}
-  {\textbf{w-pre, c-frame}}
+  {\textbf{w-pre, c-frame - \color{blue}(4) }}
   {
   \nt{r,x:\left[
     \begin{array}{l}
       \emirp(r,n), \emirp(r,n)
     \end{array}
-  \right]}{(11)}}\\
+  \right]}{(10)}}\\
 %
-  \refstep{\textbf{skip - \color{blue}(4)}}
+  \refstep{\textbf{skip - \color{blue}(5)}}
   {skip}\\
 %
-  \lrefstep{(10)}
+  \lrefstep{(9)}
   {\textbf{seq}}
   {
   \nt{r,x:\left[
     \begin{array}{l}
       Inv\And i\neq n, Inv\subst{x+1}{x}
     \end{array}
-  \right]}{(11)};\\
+  \right]}{(10)};\\
   &\nt{r,x:\left[
     \begin{array}{l}
       Inv\subst{x+1}{x}, Inv
     \end{array}
-  \right]}{(12)}}\\
+  \right]}{(11)}}\\
 \end{align*}
 \begin{align*}
-  \lrefstep{(11)}
-  {\textbf{ass - \color{blue}(5)}}
+  \lrefstep{(10)}
+  {\textbf{ass - \color{blue}(6)}}
   {x\Ass{x+1}}\\
 %
-  \lrefstep{(12)}
+  \lrefstep{(11)}
   {\textbf{i-loc, seq}}
   {
   \nt{a,i,r,x:\left[
     \begin{array}{l}
       Inv\subst{x+1}{x}, Inv\subst{x+1}{x}\And a=1
     \end{array}
-  \right]}{(14)};\\
+  \right]}{(12)};\\
   &\nt{a,i,r,x:\left[
     \begin{array}{l}
       Inv\subst{x+1}{x}\And a=1, Inv
     \end{array}
-  \right]}{(15)}
+  \right]}{(13)}
   }\\
-%\color{blue}(6)
-  \lrefstep{(14)}
+%
+  \lrefstep{(12)}
   {\textbf{c-frame}}
   {
   a,x:\left[
@@ -194,10 +193,10 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
     \end{array}
   \right]}\\
 %
-  \refstep{\textbf{ass - \color{blue}(6)}}
+  \refstep{\textbf{ass - \color{blue}(7)}}
   {a\Ass 1}\\
 %
-  \lrefstep{(15)}
+  \lrefstep{(13)}
   {\textbf{seq}}
   {
   \nt{a,i,r,x:\left[
@@ -205,21 +204,21 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
       Inv\subst{x+1}{x}\And a=1 ,(a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\\
       \Or(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0}))
     \end{array}
-  \right]}{(16)};\\
+  \right]}{(14)};\\
   &\nt{a,i,r,x:\left[
     \begin{array}{l}
       (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\\\Or(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})),
       Inv
     \end{array}
-  \right]}{(17)}
+  \right]}{(15)}
   }\\
 %
-  \lrefstep{(16)}
-  {\textbf{w-pre}}
+  \lrefstep{(14)}
+  {\textbf{w-pre - \color{blue}(8)}}
   {
   a,x:\left[
     \begin{array}{l}
-      a>1\And x>0, post(16)  
+      a>1\And x>0, post(14)  
     \end{array}
   \right]}\\
 %
@@ -227,18 +226,18 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
     isPrime(x,a)
   }\\
 %
-  \lrefstep{(17)}{\textbf{if}}
+  \lrefstep{(15)}{\textbf{if}}
   {\IF~a=1\\
-  &\THEN~\nt{a,i,r,x:[a=1\And\pre(18),\post(18)]}{(18)}\\
-  &\ELSE~\nt{p,x:[a\neq1\And\pre(18),\post(18)]}{(19)}\\
+  &\THEN~\nt{a,i,r,x:[a=1\And\pre(15),\post(15)]}{(16)}\\
+  &\ELSE~\nt{p,x:[a\neq1\And\pre(15),\post(15)]}{(17)}\\
   &\FI}\\
 %
-  \lrefstep{(18)}
+  \lrefstep{(16)}
   {\textbf{i-loc}}
   {
   a,i,r,s,x:\left[
     \begin{array}{l}
-      \pre(18), \post(18)  
+      \pre(16), \post(16)  
     \end{array}
   \right]}\\
 %
@@ -246,74 +245,130 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
   {
   \nt{s,x:\left[
     \begin{array}{l}
-      \pre(18), \post(18)\And s=0
+      \pre(16), s=0
+    \end{array}
+  \right]}{(18)};\\
+  &\nt{a,i,r,s,x: \left[
+    \begin{array}{l}
+      s=0, \post(16)
+    \end{array}
+  \right]}{(19)}}\\
+%
+\lrefstep{(17)}{\textbf{c-frame, w-pre- \color{blue}(9)}}
+  {
+  i,r:\left[
+    \begin{array}{l}
+        Inv, Inv
+    \end{array}\right]}\\
+%
+  \refstep{\textbf{ass - \color{blue}(10)}}
+  {skip}\\
+%
+  \lrefstep{(18)}{\textbf{ass - \color{blue}(11)}}
+  {s\Ass 0}\\  
+%
+  \lrefstep{(19)}{\textbf{seq}}
+  {
+  \nt{s,x:\left[
+    \begin{array}{l}
+      \pre(19), \textrm{\remark{reversen function post condition}}
     \end{array}
   \right]}{(20)};\\
   &\nt{a,i,r,s,x: \left[
     \begin{array}{l}
-      \post(18)\And s=0, \post(18)
+      \textrm{\remark{reversen function post condition}}, \post(19)
     \end{array}
   \right]}{(21)}}\\
-%
-  \lrefstep{(20)}{\textbf{ass - \color{blue}(7)}}
-  {s\Ass 0}\\  
-%
-  \lrefstep{(21)}{\textbf{seq}}
-  {
-  \nt{s,x:\left[
-    \begin{array}{l}
-      \pre(21), \textrm{\remark{reversen function post condition}}
-    \end{array}
-  \right]}{(22)};\\
-  &\nt{a,i,r,s,x: \left[
-    \begin{array}{l}
-      \textrm{\remark{reversen function post condition}}, \post(21)
-    \end{array}
-  \right]}{(23)}}\\
-%
-  \lrefstep{(22)}{\textbf{w-pre - \color{blue}(8)}}
+\end{align*}
+\begin{align*}
+  \lrefstep{(20)}{\textbf{w-pre - \color{blue}(12)}}
   {
   s,x:\left[
     \begin{array}{l}
       \textrm{\remark{reverse function pre condition}}, \textrm{\remark{reversen function post condition}}
     \end{array}
   \right]}\\
-\end{align*}
-\begin{align*}
+%
   \refstep{\textbf{proc}}
   {reversen(x,s)}\\
 %
-  \lrefstep{(23)}
+  \lrefstep{(21)}
   {\textbf{i-loc, seq}}
   {
   \nt{a,i,r,s,b,x:\left[
     \begin{array}{l}
-      \pre(23), \pre(23)\And b=1  
+      \pre(21), \pre(21)\And b=1  
     \end{array}
-  \right]}{(24)};\\
+  \right]}{(22)};\\
   &\nt{a,i,r,s,b,x:\left[
     \begin{array}{l}
-      \pre(23)\And b=1, \post(23)  
+      \pre(21)\And b=1, \post(21)  
     \end{array}
-  \right]}{(25)}}\\
+  \right]}{(23)}}\\
 %
-  \lrefstep{(24)}{\textbf{c-frame, ass - \color{blue}(9)}}
+  \lrefstep{(22)}{\textbf{c-frame, ass - \color{blue}(13)}}
    {
      b\Ass 1 
    }\\
 %
-  \lrefstep{(25)}{\textbf{seq}}
+  \lrefstep{(23)}{\textbf{seq}}
   {
   \nt{a,i,r,s,b,x:\left[
     \begin{array}{l}
-        pre(23) \And b = 1, ...prime..
+        pre(21) \And b = 1, (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\\
+      \Or(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})
     \end{array}
-  \right]}{(26)};\\
+  \right]}{(24)};\\
   &\nt{a,i,r,s,b,x:\left[
     \begin{array}{l}
-        ..prime.. , post(23)
+        (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\\
+      \Or(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0}) , post(21)
     \end{array}
-  \right]}{(27)}}\\
+  \right]}{(25)}}\\
+%
+  \lrefstep{(24)}{\textbf{w-pre - \color{blue}{(14)}}}
+  {a,i,r,s,b,x:\left[
+    \begin{array}{l}
+        s>0 \And b=1, (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\\
+      \Or(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})
+    \end{array}\right]}\\
+%
+  \refstep{\textbf{proc}}{
+    isPrime(x,a)
+  }\\
+%
+  \lrefstep{(25)}{\textbf{if}}
+  {
+  \IF~b=1 \And s\neq x\\
+  &\THEN~\nt{i,x:[b=1\And s\neq x \And\pre(25),\post(25)]}{(26)}\\
+  &\ELSE~\nt{i,r,a,s,b,x:[(b\neq1 \Or s=x)\And\pre(25),\post(25)]}{(27)}\\
+  &\FI
+  }\\
+%
+  \lrefstep{(26)}{\textbf{c-frame, w-pre- \color{blue}(15)}}
+  {
+  a,i,r,s,b,x:\left[
+    \begin{array}{l}
+        Inv\subst{i+1}{i}\subst{x}{r}, Inv
+    \end{array}\right]}\\
+%
+  \refstep{\textbf{ass - \color{blue}(16)}}
+  {
+    i\Ass i+1\\
+    &r\Ass r\\
+  }\\
+%
+  \lrefstep{(27)}{\textbf{c-frame, w-pre- \color{blue}(17)}}
+  {
+  a,i,r,s,b,x:\left[
+    \begin{array}{l}
+        Inv, Inv
+    \end{array}\right]}\\
+%
+  \refstep{\textbf{ass - \color{blue}(18)}}
+  {
+    skip
+  }\\
 \end{align*}
 We gather the code for the procedure body of $\emirp$,x:
 \begin{tabbing}% unfortunately, tabbing doesn't do maths
