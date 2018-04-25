@@ -5,11 +5,12 @@
 \usepackage[strict=true]{csquotes}
 \usepackage{listings}
 \lstset{frame=single,framerule=0pt,language={C},showstringspaces=false,numbers=left,columns=fullflexible}
-\usepackage{color}
+%\usepackage{color}
+\usepackage[usenames, dvipsnames]{color}
 \usepackage{2111defs2,2111theorems}
 \usepackage{nicefrac}
 
-
+\newcommand{\var}{\textrm{$var$ }}
 \newcommand{\singlequote}[1]{`#1'}
 \newcommand{\myjustification}[2][\Equiv]{{}#1{} &{\bcolor\langle\text{#2}\rangle}\\}
 \newcommand{\remark}[1]{{\sffamily\color{blue}{#1}}}
@@ -17,6 +18,8 @@
 \newcommand{\pre}{\mathit{pre}}
 \newcommand{\post}{\mathit{post}}
 \newcommand{\emirp}{\textsc{emirp}\xspace}
+\newcommand{\isPrime}{\textsc{isPrime}\xspace}
+\newcommand{\myCode}[1]{\mathbf{\color{ProcessBlue}#1}}
 \newcommand{\myRefines}[2]{\color{red}{#1}\color{black}\isrefinedby\color{red}{#2}}
 
 \title{Assignment 2 - Emirps}
@@ -29,7 +32,7 @@
 \pagenumbering{Roman}
 
 \section{Task 1 - Specification Statement}
-\label{sec,x:task-1}
+\label{sec:task-1}
 \remark{Notes,x:\\-Write neatly\\-make sure grammar is correct\\-look at examples for default spec structure.}\\\\
 \remark{Define an Emirp using 2 functions - reverse and prime. Make these functions match with their given specs in order to help prove implications.}\\\\
 Pre condition,x: $n$ is a positive number - $n>0$\\\\
@@ -41,11 +44,11 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
       n>0, Emirp(r,n)
     \end{array}
   \right]}{(1)}\\$
-
+\pagebreak
 \section{Task 2 - Derivation}
-\label{sec,x:task-1}
+\label{sec:task-2}
 \begin{align*}
-  &\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}
+  &\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}	
   \nt{n,r,x:\left[
     \begin{array}{l}
       n>0, Emirp(r,n)
@@ -94,8 +97,8 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
   \right]}\\
 %
   \refstep{\textbf{ass - \color{blue}(1)}}
-  {i\Ass 1\\
-  &x\Ass 13}\\
+  {\myCode{i\Ass 1}\\
+  &\myCode{x\Ass 13}}\\
 %
   \lrefstep{(5)}
   {\textbf{seq}}
@@ -125,18 +128,18 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
   \right]}\\
 %
   \refstep{\textbf{ass - \color{blue}(3)}}
-  {r\Ass 13}\\
+  {\myCode{r\Ass 13}}\\
 %
   \lrefstep{(7)}
   {\textbf{while}}
   {
-  \WHILE~i\neq n~\DO\\
+  \myCode{\WHILE~i\neq n~\DO}\\
   &\qquad \nt{i,r,x:\left[
     \begin{array}{l}
       Inv\And i\neq n, Inv
     \end{array}
   \right]}{(9)}\\
-  &\OD;}\\
+  &\myCode{\OD;}}\\
 %
   \lrefstep{(8)}
   {\textbf{w-pre, c-frame - \color{blue}(4) }}
@@ -148,7 +151,7 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
   \right]}{(10)}}\\
 %
   \refstep{\textbf{skip - \color{blue}(5)}}
-  {skip}\\
+  {\myCode{skip}}\\
 %
   \lrefstep{(9)}
   {\textbf{seq}}
@@ -167,7 +170,7 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
 \begin{align*}
   \lrefstep{(10)}
   {\textbf{ass - \color{blue}(6)}}
-  {x\Ass{x+1}}\\
+  {\myCode{x\Ass{x+1}}}\\
 %
   \lrefstep{(11)}
   {\textbf{i-loc, seq}}
@@ -194,7 +197,7 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
   \right]}\\
 %
   \refstep{\textbf{ass - \color{blue}(7)}}
-  {a\Ass 1}\\
+  {\myCode{a\Ass 1}}\\
 %
   \lrefstep{(13)}
   {\textbf{seq}}
@@ -223,14 +226,14 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
   \right]}\\
 %
   \refstep{\textbf{proc}}{
-    isPrime(x,a)
+    \myCode{isPrime(x,a)}
   }\\
 %
   \lrefstep{(15)}{\textbf{if}}
-  {\IF~a=1\\
-  &\THEN~\nt{a,i,r,x:[a=1\And\pre(15),\post(15)]}{(16)}\\
-  &\ELSE~\nt{p,x:[a\neq1\And\pre(15),\post(15)]}{(17)}\\
-  &\FI}\\
+  {\myCode{\IF~a=1}\\
+  &\myCode{\THEN}~\nt{a,i,r,x:[a=1\And\pre(15),\post(15)]}{(16)}\\
+  &\myCode{\ELSE}~\nt{p,x:[a\neq1\And\pre(15),\post(15)]}{(17)}\\
+  &\myCode{\FI}}\\
 %
   \lrefstep{(16)}
   {\textbf{i-loc}}
@@ -261,11 +264,11 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
         Inv, Inv
     \end{array}\right]}\\
 %
-  \refstep{\textbf{ass - \color{blue}(10)}}
-  {skip}\\
+  \refstep{\textbf{skip - \color{blue}(10)}}
+  {\myCode{skip}}\\
 %
   \lrefstep{(18)}{\textbf{ass - \color{blue}(11)}}
-  {s\Ass 0}\\  
+  {\myCode{s\Ass 0}}\\  
 %
   \lrefstep{(19)}{\textbf{seq}}
   {
@@ -290,7 +293,7 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
   \right]}\\
 %
   \refstep{\textbf{proc}}
-  {reversen(x,s)}\\
+  {\myCode{reversen(x,s)}}\\
 %
   \lrefstep{(21)}
   {\textbf{i-loc, seq}}
@@ -308,41 +311,41 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
 %
   \lrefstep{(22)}{\textbf{c-frame, ass - \color{blue}(13)}}
    {
-     b\Ass 1 
+     \myCode{b\Ass 1} 
    }\\
 %
   \lrefstep{(23)}{\textbf{seq}}
   {
   \nt{a,i,r,s,b,x:\left[
     \begin{array}{l}
-        pre(21) \And b = 1, (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\\
-      \Or(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})
+        pre(21) \And b = 1, (b=1 \text{ }\And \neg\Exi{k \in 2..(s-1)}{s\textbf{ mod }k=0})\\
+      \Or(b=0 \And \Exi{k \in 2..(s-1)}{s\textbf{ mod }k=0})
     \end{array}
   \right]}{(24)};\\
   &\nt{a,i,r,s,b,x:\left[
     \begin{array}{l}
-        (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\\
-      \Or(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0}) , post(21)
+        (b=1 \text{ }\And \neg\Exi{k \in 2..(s-1)}{s\textbf{ mod }k=0})\\
+      \Or(b=0 \And \Exi{k \in 2..(s-1)}{s\textbf{ mod }k=0}) , post(21)
     \end{array}
   \right]}{(25)}}\\
 %
   \lrefstep{(24)}{\textbf{w-pre - \color{blue}{(14)}}}
   {a,i,r,s,b,x:\left[
     \begin{array}{l}
-        s>0 \And b=1, (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\\
-      \Or(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})
+        s>0 \And b=1, (b=1 \text{ }\And \neg\Exi{k \in 2..(s-1)}{s\textbf{ mod }k=0})\\
+      \Or(b=0 \And \Exi{k \in 2..(s-1)}{s\textbf{ mod }k=0})
     \end{array}\right]}\\
 %
   \refstep{\textbf{proc}}{
-    isPrime(x,a)
+    \myCode{isPrime(s,b)}
   }\\
 %
   \lrefstep{(25)}{\textbf{if}}
   {
-  \IF~b=1 \And s\neq x\\
-  &\THEN~\nt{i,x:[b=1\And s\neq x \And\pre(25),\post(25)]}{(26)}\\
-  &\ELSE~\nt{i,r,a,s,b,x:[(b\neq1 \Or s=x)\And\pre(25),\post(25)]}{(27)}\\
-  &\FI
+  \myCode{\IF~b=1 \And s\neq x}\\
+  &\myCode{\THEN}~\nt{i,x:[b=1\And s\neq x \And\pre(25),\post(25)]}{(26)}\\
+  &\myCode{\ELSE}~\nt{i,r,a,s,b,x:[(b\neq1 \Or s=x)\And\pre(25),\post(25)]}{(27)}\\
+  &\myCode{\FI;}
   }\\
 %
   \lrefstep{(26)}{\textbf{c-frame, w-pre- \color{blue}(15)}}
@@ -354,9 +357,9 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
 %
   \refstep{\textbf{ass - \color{blue}(16)}}
   {
-    i\Ass i+1\\
-    &r\Ass r\\
-  }\\
+    \myCode{i\Ass i+1}\\
+    &\myCode{r\Ass x}\\
+  }
 %
   \lrefstep{(27)}{\textbf{c-frame, w-pre- \color{blue}(17)}}
   {
@@ -365,47 +368,290 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
         Inv, Inv
     \end{array}\right]}\\
 %
-  \refstep{\textbf{ass - \color{blue}(18)}}
+  \refstep{\textbf{skip - \color{blue}(18)}}
   {
-    skip
+    \myCode{skip}
   }\\
 \end{align*}
-We gather the code for the procedure body of $\emirp$,x:
-\begin{tabbing}% unfortunately, tabbing doesn't do maths
-\end{tabbing}
-We have derived our code. However we need to prove \textbf{\color{blue}some }\color{black} refinements.
-\subsection{\color{blue}Implication 1\color{black}: $\myRefines{(4)}{i\Ass 1}$}
-
 \begin{align*}
-  &K\And i\geq1 \And a[i][l]=a[i-1][l] \And j=1 \And a[i][l]=0\\
-  %
-  \myjustification[\Implies]{$K\And B\And C\And D\And E\Implies K\And C\And E$.Expanding K}
-  % 
-  &I \And j\in (0,1) \And l\in 0..y, a[i][y]=0 \And \All{w\in 0..(l-1)}{a[i][w]=a[i-1][w]} \And\\
-  &a[i][l]=a[i-1][l] \And a[i][l]=0\\
-  %
-  \myjustification[\Implies]{since true for $w$ in 0..l-1 and also for l}
-  %
-  &I \And j\in (0,1) \And l\in 0..y, a[i][y]=0 \And \All{w\in 0..l}{a[i][w]=a[i-1][w] \And a[i][l]=0}\\
-  %
-  \myjustification[\Implies]{separating for $l$ in 0..y-1 and l=y}
-  %
-  &I \And j\in (0,1) \And l\in 0..y-1, a[i][y]=0 \And \All{w\in 0..l}{a[i][w]=a[i-1][w]} \And a[i][l]=0 \OR\\
-  &I \And j\in (0,1) \And l=y\And a[i][l]=0, a[i][y]=0 \And \All{w\in 0..l}{a[i][w]=a[i-1][w]}\\
-  %
-  \myjustification[\Implies]{since a[i][l] = a[i][y] = 0 when l=y}
-  %
-  &I \And j\in (0,1) \And l\in 0..y-1, a[i][y]=0 \And \All{w\in 0..l}{a[i][w]=a[i-1][w]} \Or TRUE\\
-  %
-  \myjustification{definitions of $I$ and substitution , $l$ in 0..y-1 means (l+1) in 0..y }
-  %
-  &K\subst {l+1}l\subst 0j
+  &\PROC~\isPrime(\VALUE~r, \RESULT~a)\cdot{}\\
+  &\qquad\nt{r,a:\left[
+    \begin{array}{l}
+      a=1\And r>0, (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\\
+      \Or(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0}
+    \end{array}
+  \right]}{(1)}\\
+%
+  \lrefstep{(1)}
+  {\textbf{seq, i-loc}}
+  {
+  \nt{r,a,j:\left[
+    \begin{array}{l}
+      a=1\And r>0, a=1\And r>0 \And j=2 
+    \end{array}
+  \right]}{(2)};\\
+  &\nt{r,a,j:\left[
+    \begin{array}{l}
+      a=1\And r>0 \And j=2, (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\\
+      \Or(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0}
+    \end{array}
+  \right]}{(3)}}\\
+%
+  \lrefstep{(2)}
+  {\textbf{ass - \color{blue}(19)}}
+  {\myCode{j \Ass 2}}\\
+%
+  \lrefstep{(3)}
+  {\textbf{seq}}
+  {
+  \nt{r,a,j:\left[
+    \begin{array}{l}
+      a=1\And r>0 \And j=2, Inv_{2} 
+    \end{array}
+  \right]}{(4)};\\
+  &\nt{r,a,j:\left[
+    \begin{array}{l}
+      Inv_{2}, Inv_{2} \And j=r 
+    \end{array}
+  \right]}{(5)};\\
+  &\nt{r,a,j:\left[
+    \begin{array}{l}
+      Inv_{2} \And j=r, post(3)
+    \end{array}
+  \right]}{(6)}}\\
+%
+  \lrefstep{(4)}
+  {\textbf{w-pre - \color{blue}(20)}}
+  {
+  r,a,j:\left[
+    \begin{array}{l}
+      Inv_{2}, Inv_{2} 
+    \end{array}
+  \right]}\\
+%
+  \refstep{\textbf{skip - \color{blue}(21)}}{
+    \myCode{skip}
+  }\\
+%
+  \lrefstep{(6)}
+  {\textbf{w-pre - \color{blue}(22)}}
+  \nt{r,a,j:\left[
+    \begin{array}{l}
+      post(3), post(3) 
+    \end{array}
+  \right]}{(7)}\\
+%
+  \refstep{\textbf{skip - \color{blue}(23)}}{
+    \myCode{skip}
+  }\\
+%
+  \lrefstep{(5)}
+  {\textbf{while}}
+  {
+  \myCode{\WHILE~j\neq r~\DO}\\
+  &\qquad \nt{r, j:\left[
+    \begin{array}{l}
+      Inv_{2}\And j\Not r, Inv_{2}
+    \end{array}
+  \right]}{(8)}\\
+  &\myCode{\OD;}}\\
+%
+  \lrefstep{(8)}
+  {\textbf{seq}}
+  {
+  \nt{r,j:\left[
+    \begin{array}{l}
+      pre(8), Inv_{2}\subst{j+1}{j} 
+    \end{array}
+  \right]}{(9)};\\
+  &\nt{r,j:\left[
+    \begin{array}{l}
+      Inv_{2}\subst{j+1}{j}, Inv_{2} 
+    \end{array}
+  \right]}{(10)}}\\
+%
+  \lrefstep{(9)}{\textbf{if}}
+  {\myCode{\IF~r\text{ }\textbf{mod}\text{ }j = 0}\\
+  &\myCode{\THEN}~\nt{a:[r\text{ }\textbf{mod}\text{ }j=0\And\pre(10),\post(10)]}{(11)}\\
+  &\myCode{\ELSE}~\nt{a:[r\text{ }\textbf{mod}\text{ }j\neq0\And\pre(18),\post(10)]}{(12)}\\
+  &\myCode{\FI;}}\\
+%
+  \lrefstep{(10)}
+  {\textbf{ass - \color{blue}{(24)}}}
+  {\myCode{j \Ass j+1}}\\
+%
+  \lrefstep{(11)}
+  {\textbf{w-pre - \color{blue}(22)}}
+  {r,a,j:\left[
+    \begin{array}{l}
+      Inv_{2}\subst{0}{a}\subst{j+1}{j}, post(11)
+    \end{array}
+  \right]}\\
+%  
+  \refstep{\textbf{ass - \color{blue}{(23)}}}{
+    \myCode{a \Ass 0}
+  }\\
 \end{align*}
+\begin{align*}
+  \lrefstep{(12)}
+  {\textbf{w-pre - \color{blue}(24)}}
+  {r,a,j:\left[
+    \begin{array}{l}
+      Inv_{2}, post(11)
+    \end{array}
+  \right]}\\
+%
+  \refstep{\textbf{skip - \color{blue}{(25)}}}
+  {
+    \myCode{skip}
+  }
+\end{align*}\\
+We gather the code for the procedure body of $\emirp$:
+\begin{gather*}
+  \mathbf{EMIRP(r,n):}\\
+  \qquad \var i\Ass 1;\\
+  \qquad \var x\Ass 13;\\
+  \qquad r\Ass 13;\\
+  \qquad \WHILE~j\neq r~\DO\\
+  \qquad \qquad x\Ass {x+1};\\
+  \qquad \qquad \var a\Ass 1;\\
+  \qquad \qquad isPrime(x,a);\\
+  \qquad \qquad \IF~a=1~\THEN\\
+  \qquad \qquad \qquad \var s\Ass 0;\\
+  \qquad \qquad \qquad reversen(x,s);\\
+  \qquad \qquad \qquad \var b\Ass 1;\\
+  \qquad \qquad \qquad isPrime(s,b);\\
+  \qquad \qquad \qquad \IF~b=1\And s\neq x~\THEN\\
+  \qquad \qquad \qquad \qquad i\Ass {i+1};\\
+  \qquad \qquad \qquad \qquad r\Ass x;\\
+  \qquad \OD;
+\end{gather*}
+Also, we gather the code for the procedure body of $\isPrime$:
+\begin{gather*}
+  \mathbf{isPrime(r,j):}\\
+  \qquad \var j\Ass 2;\\
+  \qquad \WHILE~j\neq r~\DO\\
+  \qquad \qquad \IF~(r \textrm{ mod }j)=0~\THEN\\
+  \qquad \qquad \qquad a\Ass 0;\\
+  \qquad \qquad j\Ass {j+1};\\
+  \qquad \OD;\\
+\end{gather*}
+We have derived our code. However we need to prove \textbf{\color{blue}some }\color{black} refinements.
 
+
+\subsection{\color{blue}Implication 1\color{black}: $\myRefines{(4)}{i\Ass 1}$}
+\begin{align*}
+&\text{To prove: } i = i_{0} \And n > 0 \Implies (i=1 \And n=0)\subst{1}{i}\\\\
+%
+&\text{Proof:}\\
+%
+&LHS =  i = i_{0} \And n > 0 \\
+%
+\myjustification[\Implies]{1=1 is vacuously true}
+&1=1 \And i=i_{0} \And n>0\\
+%
+\myjustification[\Implies]{$A \And B \And C \Implies A\And B$}
+&1=1 \And n>0\\
+%
+\myjustification[\Implies]{$1=1 \And i=1 \Implies \subst{1}{i}$}
+&(i=1\And n>0)\subst{1}{i}\\
+%
+\myjustification[\Implies]{clearly}
+&RHS
+\end{align*}
+\subsection{\color{blue}Implication 2\color{black}: $\myRefines{(8)}{(9)}$}
+To prove w-pre we need to prove: $pre \Implies pre^{'}$\\
+\begin{align*}
+&\text{To prove: } i=1 \And n>0 \Implies Inv\subst{13}{r}\\\\
+%
+&\text{Proof:}\\
+%
+&LHS = i=1 \And n>0\\
+%
+\myjustification[\Implies]{$A \And B \Implies A$}
+&i=1\\
+%
+\myjustification[\Implies]{We know that 13 is the 1st emirp and from our definition of emirp}
+&i=1 \And Emirp(13,1)\\
+%
+\myjustification[\Implies]{This is our Inv with 13 substituted for r}
+&Inv\subst{13}{r}\\
+%
+\myjustification[\Implies]{clearly}
+&RHS\\
+\end{align*}
+\subsection{\color{blue}Implication 3\color{black}: $\myRefines{(9)}{r \Ass 13}$}
+\begin{align*}
+&\text{To prove: } r=r_{0} \And Inv\subst{13}{r} \Implies Inv\subst{13}{r}\\\\
+%
+&\text{Proof:}\\
+%
+&LHS = r=r_{0} \And Inv\subst{13}{r}\\
+%
+\myjustification[\Implies]{$A \And B \Implies A$}
+&Inv\subst{13}{r}\\
+\myjustification[\Implies]{clearly}
+&RHS\\
+\end{align*}
+\subsection{\color{blue}Implication 4\color{black}: $\myRefines{(11)}{skip}$}
+To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
+\begin{align*}
+&\text{To prove: } Emirp(r, n) \Implies Emirp(r,n)\subst{r_{0}}{r}\\\\
+%
+&\text{Proof:}\\
+%
+&LHS = Emirp(r, n)\\
+%
+\myjustification[\Implies]{Since $r_{0}$ is the value of r in the precondition, $r=r_{0}$ in the precondition}
+&Emirp(r_{0}, n)\\
+%
+\myjustification[\Implies]{clearly}
+&RHS\\
+\end{align*}
+\subsection{\color{blue}Implication 6\color{black}: $\myRefines{ Inv\subst{x+1}{x}, Inv\subst{x+1}{x}\And a=1}{a \Ass 1}$}
+\begin{align*}
+&\text{To prove: a=a}_{0} \And Inv\subst{r+1}{r} \Implies (a=1 \And Inv\subst{r+1}{r})\subst{1}{a}\\\\
+%
+&\text{Proof:}\\
+%
+&LHS = a=a_{0} \And Inv\subst{r+1}{r}\\
+%
+\myjustification[\Implies]{1=1 is vacuously true}
+&1=1 \And a=a_{0} \And Inv\subst{r+1}{r}\\
+%
+\myjustification[\Implies]{$A \And B \And C \Implies A\And B$}
+&1=1 \And Inv\subst{r+1}{r}\\
+%
+\myjustification[\Implies]{$1=1 \And a=1 \Implies \subst{1}{i}$}
+&(a=1\And Inv\subst{r+1}{r})\subst{1}{a}\\
+%
+\myjustification[\Implies]{clearly}
+&RHS\\
+\end{align*}
+\subsection{\color{blue}Implication 7\color{black}: $\myRefines{(20)}{s \Ass 0}$}
+\begin{align*}
+&\text{To prove: } s=s_{0} \And (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\Or\\(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})) \Implies s=0\subst{0}{s}\\\\
+%
+&\text{Proof:}\\
+%
+&LHS = s=s_{0} \And (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\\\Or(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0}))\\
+%
+\myjustification[\Implies]{0=0 is vacuously true}
+&0=0 \And s=s_{0} \And (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\\\Or(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0}))\\
+%
+\myjustification[\Implies]{$A \And B \And C \Implies A$}
+&0=0\\
+%
+&\myjustification[\Implies]{$0=0 \And s=0 \Implies \subst{1}{s}$}
+(s=0)\subst{0}{s}\\
+%
+\myjustification[\Implies]{clearly}
+&RHS\\
+\end{align*}
 
 
 \section{Task 3 - C Code}
-\label{sec,x:task-1}
+\label{sec:task-3}
 \lstinputlisting{emirp.c}
 \remark{- Write something about how the C code relates.\\- Compare with examples}
 \end{document}

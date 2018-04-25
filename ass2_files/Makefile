@@ -2,11 +2,11 @@ CFLAGS=-O -Wall -Werror
 
 CFILES	:= $(wildcard *.c)
 OFILES	:= $(patsubst %.c,%.o,$(CFILES))
-TARGETS	:= emirp 
+TARGETS	:= emirp emirp.pdf
 
 .PHONY: all clean
 
-all: $(TARGETS) emirp.pdf
+all: $(TARGETS) 
 
 # remove -DUSEGMP and -lgmp unless you use gmp
 emirp: reverse.c reverse.h emirp.c
@@ -14,7 +14,7 @@ emirp: reverse.c reverse.h emirp.c
 	gcc $(CFLAGS) -lgmp reverse.o emirp.c -o emirp
 
 emirp.pdf: emirp.tex
-	latexmk -pdf emirp && latexmk -c
+	latexmk -pdf emirp.tex && latexmk -c
 
 clean:
 	$(RM) $(OFILES) $(TARGETS) *.gch
