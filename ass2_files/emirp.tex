@@ -451,7 +451,7 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
   \myCode{\WHILE~j\neq r~\DO}\\
   &\qquad \nt{r, j:\left[
     \begin{array}{l}
-      Inv_{2}\And j\Not r, Inv_{2}
+      Inv_{2}\And j\neq r, Inv_{2}
     \end{array}
   \right]}{(8)}\\
   &\myCode{\OD;}}\\
@@ -473,7 +473,7 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}\\
   \lrefstep{(9)}{\textbf{if}}
   {\myCode{\IF~r\text{ }\textbf{mod}\text{ }j = 0}\\
   &\myCode{\THEN}~\nt{a:[r\text{ }\textbf{mod}\text{ }j=0\And\pre(10),\post(10)]}{(11)}\\
-  &\myCode{\ELSE}~\nt{a:[r\text{ }\textbf{mod}\text{ }j\neq0\And\pre(18),\post(10)]}{(12)}\\
+  &\myCode{\ELSE}~\nt{a:[r\text{ }\textbf{mod}\text{ }j\neq0\And\pre(10),\post(10)]}{(12)}\\
   &\myCode{\FI;}}\\
 %
   \lrefstep{(10)}

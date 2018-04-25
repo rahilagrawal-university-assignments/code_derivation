@@ -11,19 +11,19 @@ int main (int argc, char* argv[]){
 }
 
 unsigned long emirp(unsigned long n) {
-	int i = 1;
+    int i = 1;
     unsigned long x = 13;
-	unsigned long r = 13;
+    unsigned long r = 13;
     while (i != n) {
         x = x + 1;
         int a = 1;
-        isPrime(r, &a);
+        isPrime(x, &a);
         if (a == 1) {
             unsigned long s = 0;
             reversen(x, &s);
             int b = 1;
             isPrime(s, &b);
-            if (b == 1 && s != r)
+            if (b == 1 && s != x)
                 i = i + 1;
                 r = x;
         }
