@@ -291,12 +291,12 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}
   {
   \nt{s,x:\left[
     \begin{array}{l}
-      \pre(19), s = \sum\limits_{i=0}^{c(n)}(S_i10^{i})
+      \pre(19), s = \sum\limits_{i=0}^{c(x)}(S_i10^{i})
     \end{array}
   \right]}{(20)};\\
   &\nt{a,i,r,s,x: \left[
     \begin{array}{l}
-      s = \sum\limits_{i=0}^{c(n)}(S_i10^{i}), \post(19)
+      s = \sum\limits_{i=0}^{c(x)}(S_i10^{i}), \post(19)
     \end{array}
   \right]}{(21)}}\\
 %
@@ -304,7 +304,7 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}
   {
   \mathbf{con}\text{ } S: [10]^{*}\cdot{} s:\left[
     \begin{array}{l}
-      x = \sum\limits_{i=0}^{c(n)}(S_i10^{(c(n)-i)}) \And x>0, s = \sum\limits_{i=0}^{c(n)}(S_i10^{i})
+      x = \sum\limits_{i=0}^{c(x)}(S_i10^{(c(x)-i)}) \And x>0, s = \sum\limits_{i=0}^{c(x)}(S_i10^{i})
     \end{array}
   \right]}\\
 %
@@ -774,7 +774,7 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 \end{align*}
 
 
-\subsection{\color{blue}Implication 12\color{black}: $\myRefines{[\pre(19), s = \sum\limits_{i=0}^{c(n)}(S_i10^{i})]}{[x = \sum\limits_{i=0}^{c(n)}(S_i10^{(c(n)-i)}) \And x>0, s = \sum\limits_{i=0}^{c(n)}(S_i10^{i})]}$}
+\subsection{\color{blue}Implication 12\color{black}: $\myRefines{[\pre(19), s = \sum\limits_{i=0}^{c(x)}(S_i10^{i})]}{[x = \sum\limits_{i=0}^{c(x)}(S_i10^{(c(x)-i)}) \And x>0, s = \sum\limits_{i=0}^{c(x)}(S_i10^{i})]}$}
 \begin{align*}
 &\text{To prove:} BLAH \\\\
 %
@@ -818,15 +818,15 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 14\color{black}: $\myRefines{[s = \sum\limits_{i=0}^{c(n)}(S_i10^{i})\And b=1,\post(24)}{[s>0\And b=1, \post(24)]}$}
+\subsection{\color{blue}Implication 14\color{black}: $\myRefines{[s = \sum\limits_{i=0}^{c(x)}(S_i10^{i})\And b=1,\post(24)}{[s>0\And b=1, \post(24)]}$}
 \begin{align*}
-&\text{To prove:} s = \sum\limits_{i=0}^{c(n)}(S_i10^{i})\And b=1 \Implies s>0 \And b=1 \\\\
+&\text{To prove:} s = \sum\limits_{i=0}^{c(x)}(S_i10^{i})\And b=1 \Implies s>0 \And b=1 \\\\
 %
 &\text{Proof:}\\
 %
-&LHS = s = \sum\limits_{i=0}^{c(n)}(S_i10^{i}) \And b=1\\
+&LHS = s = \sum\limits_{i=0}^{c(x)}(S_i10^{i}) \And b=1\\
 %
-\myjustification[\Implies]{$s = \sum\limits_{i=0}^{c(n)}(S_i10^{i}) \Implies s>0$}
+\myjustification[\Implies]{$s = \sum\limits_{i=0}^{c(x)}(S_i10^{i}) \Implies s>0$}
 &s>0 \And b=1\\
 %
 \myjustification[\Implies]{clearly}
