@@ -285,26 +285,26 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}
 %
   \lrefstep{(18)}{\textbf{ass - \color{blue}(11)}}
   {\myCode{s\Ass 0}}\\  
-%
+\end{align*}
+\begin{align*}
   \lrefstep{(19)}{\textbf{seq}}
   {
   \nt{s,x:\left[
     \begin{array}{l}
-      \pre(19), \textrm{\remark{reversen function post condition}}
+      \pre(19), s = \sum\limits_{i=0}^{c(n)}(S_i10^{i})
     \end{array}
   \right]}{(20)};\\
   &\nt{a,i,r,s,x: \left[
     \begin{array}{l}
-      \textrm{\remark{reversen function post condition}}, \post(19)
+      s = \sum\limits_{i=0}^{c(n)}(S_i10^{i}), \post(19)
     \end{array}
   \right]}{(21)}}\\
-\end{align*}
-\begin{align*}
+%
   \lrefstep{(20)}{\textbf{i-con, c-frame, w-pre - \color{blue}(12)}}
   {
   \mathbf{con}\text{ } S: [10]^{*}\cdot{} s:\left[
     \begin{array}{l}
-      \textrm{\remark{reverse function pre condition}}, \textrm{\remark{reversen function post condition}}
+      x = \sum\limits_{i=0}^{c(n)}(S_i10^{(c(n)-1)}) \And n>0, s = \sum\limits_{i=0}^{c(n)}(S_i10^{i})
     \end{array}
   \right]}\\
 %
@@ -376,7 +376,8 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}
     \myCode{i\Ass i+1}\\
     &\myCode{r\Ass x}\\
   }
-%
+\end{align*}
+\begin{align*}
   \lrefstep{(27)}{\textbf{c-frame, w-pre- \color{blue}(17)}}
   {
   a,i,r,s,b,x:\left[
@@ -387,9 +388,8 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}
   \refstep{\textbf{skip - \color{blue}(18)}}
   {
     \myCode{skip}
-  }\\
-\end{align*}
-\begin{align*}
+  }\\\\
+%
   &\PROC~\isPrime(\VALUE~r, \RESULT~a)\cdot{}\\
   &\qquad\nt{r,a:\left[
     \begin{array}{l}
@@ -485,7 +485,8 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}
       Inv_{2}\subst{j+1}{j}, Inv_{2} 
     \end{array}
   \right]}{(10)}}\\
-%
+\end{align*}
+\begin{align*}
   \lrefstep{(9)}{\textbf{if}}
   {\myCode{\IF~r\text{ }\textbf{mod}\text{ }j = 0}\\
   &\myCode{\THEN}~\nt{a:[r\text{ }\textbf{mod}\text{ }j=0\And\pre(9),\post(9)]}{(11)}\\
@@ -495,8 +496,6 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}
   \lrefstep{(10)}
   {\textbf{ass - \color{blue}{(24)}}}
   {\myCode{j \Ass j+1}}\\
-\end{align*}
-\begin{align*}
   \lrefstep{(11)}
   {\textbf{w-pre - \color{blue}(25)}}
   {r,a,j:\left[
@@ -775,7 +774,7 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 \end{align*}
 
 
-\subsection{\color{blue}Implication 12\color{black}: $\myRefines{[\pre(19), \text{\remark{reversen function post condition}}]}{[\text{\remark{reversen function pre condition}}, \text{\remark{reversen function post condition}}]}$}
+\subsection{\color{blue}Implication 12\color{black}: $\myRefines{[\pre(19), s = \sum\limits_{i=0}^{c(n)}(S_i10^{i})]}{[x = \sum\limits_{i=0}^{c(n)}(S_i10^{(c(n)-1)}) \And n>0, s = \sum\limits_{i=0}^{c(n)}(S_i10^{i})]}$}
 \begin{align*}
 \end{align*}
 
@@ -800,15 +799,15 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 14\color{black}: $\myRefines{[\text{\remark{reversen function post condition}}\And b=1,\post(24)}{[s>0\And b=1, \post(24)]}$}
+\subsection{\color{blue}Implication 14\color{black}: $\myRefines{[s = \sum\limits_{i=0}^{c(n)}(S_i10^{i})\And b=1,\post(24)}{[s>0\And b=1, \post(24)]}$}
 \begin{align*}
-&\text{To prove:} \text{\remark{reversen function post condition}}\And b=1 \Implies s>0 \And b=1 \\\\
+&\text{To prove:} s = \sum\limits_{i=0}^{c(n)}(S_i10^{i})\And b=1 \Implies s>0 \And b=1 \\\\
 %
 &\text{Proof:}\\
 %
-&LHS = \text{\remark{reversen function post condition}} \And b=1\\
+&LHS = s = \sum\limits_{i=0}^{c(n)}(S_i10^{i}) \And b=1\\
 %
-\myjustification[\Implies]{s = \text{\remark{reversen function post condition}} $\Implies$ s>0}
+\myjustification[\Implies]{$s = \sum\limits_{i=0}^{c(n)}(S_i10^{i}) \Implies s>0$}
 &s>0 \And b=1\\
 %
 \myjustification[\Implies]{clearly}
