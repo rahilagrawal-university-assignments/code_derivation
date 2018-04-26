@@ -24,7 +24,7 @@
 
 \title{Assignment 2 - Emirps}
 \date{COMP2111 18s1}
-\author{Rahil Agrawal z5165505\\Aditya Karia zXXXXXXX}
+\author{Rahil Agrawal z5165505\\Aditya Karia z5163287}
 
 \begin{document}
 \pagenumbering{gobble}
@@ -38,8 +38,8 @@ Therefore, we can define a primality check function as follows:
 \begin{gather*}
   \color{blue}isPrime(r) = 
      \begin{cases}
-       \text{true} &\quad \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0}\\
-       \text{false} &\quad  \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0}\\ 
+       \text{true} &\quad \neg\Exi{k \in 2..(r-1)}{r\textbf{ mod }k=0}\\
+       \text{false} &\quad  \Exi{k \in 2..(r-1)}{r\textbf{ mod }k=0}\\ 
      \end{cases}
 \end{gather*}\\
 The $reversen(r,s)$ function provided (and proven true) in 18s1 Assignment 2 Spec can be used to occupy the reverse of a number $r$ in a variable called $s$.\\\\
@@ -300,9 +300,9 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}
   \right]}{(21)}}\\
 \end{align*}
 \begin{align*}
-  \lrefstep{(20)}{\textbf{w-pre - \color{blue}(12)}}
+  \lrefstep{(20)}{\textbf{i-con, c-frame, w-pre - \color{blue}(12)}}
   {
-  s,x:\left[
+  \mathbf{con}\text{ } S: [10]^{*}\cdot{} s:\left[
     \begin{array}{l}
       \textrm{\remark{reverse function pre condition}}, \textrm{\remark{reversen function post condition}}
     \end{array}
@@ -393,8 +393,8 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}
   &\PROC~\isPrime(\VALUE~r, \RESULT~a)\cdot{}\\
   &\qquad\nt{r,a:\left[
     \begin{array}{l}
-      a=1\And r>0, (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\\
-      \Or(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0}
+      a=1\And r>0, (a=1 \text{ }\And \neg\Exi{k \in 2..(r-1)}{r\textbf{ mod }k=0})\\
+      \Or(a=0 \And \Exi{k \in 2..(r-1)}{r\textbf{ mod }k=0}
     \end{array}
   \right]}{(1)}\\
 %
@@ -408,8 +408,8 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}
   \right]}{(2)};\\
   &\nt{r,a,j:\left[
     \begin{array}{l}
-      a=1\And r>0 \And j=2, (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\\
-      \Or(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0}
+      a=1\And r>0 \And j=2, (a=1 \text{ }\And \neg\Exi{k \in 2..(r-1)}{r\textbf{ mod }k=0})\\
+      \Or(a=0 \And \Exi{k \in 2..(r-1)}{r\textbf{ mod }k=0}
     \end{array}
   \right]}{(3)}}\\
 %
@@ -501,7 +501,7 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}
   {\textbf{w-pre - \color{blue}(25)}}
   {r,a,j:\left[
     \begin{array}{l}
-      Inv_{2}\subst{0}{a}\subst{j+1}{j}, post(11)
+      Inv_{2}\subst{j+1}{j}\subst{0}{a}, post(11)
     \end{array}
   \right]}\\
 %  
@@ -512,7 +512,7 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}
   {\textbf{w-pre - \color{blue}(27)}}
   {r,a,j:\left[
     \begin{array}{l}
-      Inv_{2}, post(11)
+      Inv_{2}\subst{j+1}{j}, post(11)
     \end{array}
   \right]}\\
 %
@@ -610,26 +610,26 @@ To prove w-pre we need to prove: $pre \Implies pre^{'}$
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 4\color{black}: $\myRefines{}{}$}
+\subsection{\color{blue}Implication 4\color{black}: $\myRefines{Inv\And i=n}{Emirp(r,n)}$}
 \begin{align*}
-&\text{To prove:} BLAH \\\\
+&\text{To prove:} Inv\And i=n \Implies Emirp(r,n) \\\\
 %
 &\text{Proof:}\\
 %
-&LHS = BLAH\\
+&LHS = Inv\And i=n\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{Expanding the Invariant}
+&Emirp(r,i) \And x\geq r \And i=n\\
 %
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{Combining conjuncts}
+&Emirp(r,n) \And x\geq r\\
 %
-\myjustification[\Implies]{BLAH}
+%
+\myjustification[\Implies]{$A\And B \Implies A$}
+&Emirp(r,n)\\
+%
+\myjustification[\Implies]{Clearly}
 &RHS\\
 \end{align*}
 
@@ -694,26 +694,21 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 8\color{black}: $\myRefines{}{}$}
+\subsection{\color{blue}Implication 8\color{black}: $\myRefines{Inv\subst{x+1}{x} \And a=1}{a=1 \And x>0}$}
 \begin{align*}
-&\text{To prove:} BLAH \\\\
+&\text{To prove: } Inv\subst{x+1}{x} \And a=1 \Implies a=1 \And x>0 \\\\
 %
 &\text{Proof:}\\
 %
-&LHS = BLAH\\
+&LHS = Inv\subst{x+1}{x} \And a=1\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{Expanding Inv and performing substitution}
+&Emirp(r,n) \And x+1>=r \And a=1\\
 %
+\myjustification[\Implies]{Since $x$ and $r$ starts at 13 and we are incrementing x, $x>0$ }
+&x>0 \And a=1\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-\myjustification[\Implies]{BLAH}
+\myjustification[\Implies]{Clearly}
 &RHS\\
 \end{align*}
 
@@ -740,26 +735,18 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 10\color{black}: $\myRefines{}{}$}
+\subsection{\color{blue}Implication 10\color{black}: $\myRefines{[Inv, Inv]}{skip}$}
 \begin{align*}
-&\text{To prove:} BLAH \\\\
+&\text{To prove:} Inv \Implies Inv\subst{r_0}{r} \\\\
 %
 &\text{Proof:}\\
 %
-&LHS = BLAH\\
+&LHS = Inv\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{Since $r_0$ is the value of $r$ in the pre-condition, thus in precondition, $r_0 = r$}
+&Inv\subst{r_0}{r}\\
 %
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-\myjustification[\Implies]{BLAH}
+\myjustification[\Implies]{Clearly}
 &RHS\\
 \end{align*}
 
@@ -811,26 +798,24 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 13\color{black}: $\myRefines{}{}$}
+\subsection{\color{blue}Implication 13\color{black}: $\myRefines{[\pre(21), \pre(21)\And b=1]}{b\Ass1}$}
 \begin{align*}
-&\text{To prove:} BLAH \\\\
+&\text{To prove:} b=b_0 \And \pre(21) \Implies (\pre(21) \And b=1)\subst{1}{b}\\\\
 %
 &\text{Proof:}\\
 %
-&LHS = BLAH\\
+&LHS = b=b_0 \And \pre(21)\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{1=1 is vacously true}
+&1=1 \And b=b_0 \And \pre(21)\\
 %
+\myjustification[\Implies]{$A\And B \And C\Implies A\And B$}
+&1=1 \And \pre(21)\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{$1=1 \Implies (b=1 \And \pre(21))\subst{1}{b}$ since b does not appear in $\pre(21)$}
+&(b=1\And \pre(21))\subst{1}{b}\\
 %
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-\myjustification[\Implies]{BLAH}
+\myjustification[\Implies]{Clearly}
 &RHS\\
 \end{align*}
 
@@ -880,26 +865,19 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 16\color{black}: $\myRefines{}{}$}
+\subsection{\color{blue}Implication 16\color{black}: $\myRefines{[Inv\subst{i+1}{i}\subst{x}{r}, Inv]}{i\Ass {i+1}; r\Ass x}$}
 \begin{align*}
-&\text{To prove:} BLAH \\\\
+&\text{To prove:} i=i_0 \And r=r_0\And Inv\subst{i+1}{i}\subst{x}{r} \Implies Inv\subst{i+1}{i}\subst{x}{r} \\\\
 %
 &\text{Proof:}\\
 %
-&LHS = BLAH\\
+&LHS = i=i_0 \And r=r_0\And Inv\subst{i+1}{i}\subst{x}{r}\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{$A\And B\And C \Implies A$}
+&Inv\subst{i+1}{i}\subst{x}{r}\\
 %
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-\myjustification[\Implies]{BLAH}
+\myjustification[\Implies]{Cleary}
 &RHS\\
 \end{align*}
 
@@ -926,49 +904,37 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 18\color{black}: $\myRefines{}{}$}
+\subsection{\color{blue}Implication 18\color{black}: $\myRefines{[Inv,Inv]}{skip}$}
 \begin{align*}
-&\text{To prove:} BLAH \\\\
+&\text{To prove:} Inv \Implies Inv\subst{r_0}{r} \\\\
 %
 &\text{Proof:}\\
 %
-&LHS = BLAH\\
+&LHS = Inv\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{Since $r_0$ is the value of $r$ in the pre-condition, thus in precondition, $r_0 = r$}
+&Inv\subst{r_0}{r}\\
 %
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-\myjustification[\Implies]{BLAH}
+\myjustification[\Implies]{Clearly}
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 19\color{black}: $\myRefines{}{}$}
+\subsection{\color{blue}Implication 19\color{black}: $\myRefines{[a=1\And r>0, a=1\And r>0\And j=2]}{j\Ass2}$}
 \begin{align*}
-&\text{To prove:} BLAH \\\\
+&\text{To prove:} j=j_0\And a=1\And r>0 \Implies (a=1\And r>0\And j=2)\subst{2}{j} \\\\
 %
 &\text{Proof:}\\
 %
-&LHS = BLAH\\
+&LHS = j=j_0\And a=1\And r>0\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{2=2 is vacously true}
+&j=j_0\And a=1\And r>0 \And 2=2\\
 %
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{2=2 $\Implies (j=2\And a=1\And r>0)\subst{2}{j}$}
+&(j=2\And a=1\And r>0)\subst{2}{j}\\
 %
-\myjustification[\Implies]{BLAH}
+\myjustification[\Implies]{Clearly}
 &RHS\\
 \end{align*}
 
@@ -995,95 +961,66 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 21\color{black}: $\myRefines{}{}$}
+\subsection{\color{blue}Implication 21\color{black}: $\myRefines{[Inv_2,Inv_2]}{skip}$}
 \begin{align*}
-&\text{To prove:} BLAH \\\\
+&\text{To prove:} Inv_2 \Implies Inv_2\subst{r_0}{r} \\\\
 %
 &\text{Proof:}\\
 %
-&LHS = BLAH\\
+&LHS = Inv_2\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{Since $r_0$ is the value of $r$ in the pre-condition, thus in precondition, $r_0 = r$}
+&Inv_2\subst{r_0}{r}\\
 %
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-\myjustification[\Implies]{BLAH}
+\myjustification[\Implies]{Clearly}
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 22\color{black}: $\myRefines{}{}$}
+\subsection{\color{blue}Implication 22\color{black}: $\myRefines{[Inv_2 \And j=r, \post(13)]}{[\post(13),\post(13)]}$}
 \begin{align*}
-&\text{To prove:} BLAH \\\\
+&\text{To prove:} Inv_2 \And j=r \Implies post(3)\\\\
 %
 &\text{Proof:}\\
 %
-&LHS = BLAH\\
+&LHS = (a=1 \text{ }\And \neg\Exi{k \in 2..(j-1)}{j\textbf{ mod }k=0})\\
+&\Or(a=0 \And \Exi{k \in 2..(j-1)}{j\textbf{ mod }k=0}\And j=r\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{Combining conjuncts}
+&(a=1 \text{ }\And \neg\Exi{k \in 2..(r-1)}{r\textbf{ mod }k=0})\\
+&\Or(a=0 \And \Exi{k \in 2..(r-1)}{r\textbf{ mod }k=0}\\
 %
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-\myjustification[\Implies]{BLAH}
+\myjustification[\Implies]{Clearly}
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 23\color{black}: $\myRefines{}{}$}
+\subsection{\color{blue}Implication 23\color{black}: $\myRefines{\post(3)}{\post(3)}$}
 \begin{align*}
-&\text{To prove:} BLAH \\\\
+&\text{To prove:} \post(3) \Implies \post(3)\subst{r_0}{r} \\\\
 %
 &\text{Proof:}\\
 %
-&LHS = BLAH\\
+&LHS = \post(3)\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{Since $r_0$ is the value of $r$ in the pre-condition, thus in precondition, $r_0 = r$}
+&\post(3)\subst{r_0}{r}\\
 %
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-\myjustification[\Implies]{BLAH}
+\myjustification[\Implies]{Clearly}
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 24\color{black}: $\myRefines{}{}$}
+\subsection{\color{blue}Implication 24\color{black}: $\myRefines{[Inv_2\subst{j+1}{j}, Inv_2]}{j\Ass{j+1}}$}
 \begin{align*}
-&\text{To prove:} BLAH \\\\
+&\text{To prove:} j=j_0 \And Inv_2\subst{j+1}{j} \Implies Inv_2\subst{j+1}{j}\\\\
 %
 &\text{Proof:}\\
 %
-&LHS = BLAH\\
+&LHS = j=j_0 \And Inv_2\subst{j+1}{j}\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{$A\And B \Implies A$}
+&Inv_2\subst{j+1}{j}\\
 %
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-\myjustification[\Implies]{BLAH}
+\myjustification[\Implies]{Clearly}
 &RHS\\
 \end{align*}
 
