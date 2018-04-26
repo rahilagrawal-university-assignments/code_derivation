@@ -694,7 +694,7 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 8\color{black}: $\myRefines{Inv\subst{x+1}{x} \And a=1}{a=1 \And x>0}$}
+\subsection{\color{blue}Implication 8\color{black}: $\myRefines{[Inv\subst{x+1}{x} \And a=1,\post(14)]}{[a=1 \And x>0, \post(14)]}$}
 \begin{align*}
 &\text{To prove: } Inv\subst{x+1}{x} \And a=1 \Implies a=1 \And x>0 \\\\
 %
@@ -775,27 +775,8 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 \end{align*}
 
 
-\subsection{\color{blue}Implication 12\color{black}: $\myRefines{}{}$}
+\subsection{\color{blue}Implication 12\color{black}: $\myRefines{[\pre(19), \text{\remark{reversen function post condition}}]}{[\text{\remark{reversen function pre condition}}, \text{\remark{reversen function post condition}}]}$}
 \begin{align*}
-&\text{To prove:} BLAH \\\\
-%
-&\text{Proof:}\\
-%
-&LHS = BLAH\\
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-\myjustification[\Implies]{BLAH}
-&RHS\\
 \end{align*}
 
 \subsection{\color{blue}Implication 13\color{black}: $\myRefines{[\pre(21), \pre(21)\And b=1]}{b\Ass1}$}
@@ -819,26 +800,18 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 14\color{black}: $\myRefines{}{}$}
+\subsection{\color{blue}Implication 14\color{black}: $\myRefines{[\text{\remark{reversen function post condition}}\And b=1,\post(24)}{[s>0\And b=1, \post(24)]}$}
 \begin{align*}
-&\text{To prove:} BLAH \\\\
+&\text{To prove:} \text{\remark{reversen function post condition}}\And b=1 \Implies s>0 \And b=1 \\\\
 %
 &\text{Proof:}\\
 %
-&LHS = BLAH\\
+&LHS = \text{\remark{reversen function post condition}} \And b=1\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{s = \text{\remark{reversen function post condition}} $\Implies$ s>0}
+&s>0 \And b=1\\
 %
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-\myjustification[\Implies]{BLAH}
+\myjustification[\Implies]{clearly}
 &RHS\\
 \end{align*}
 
@@ -994,7 +967,7 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 23\color{black}: $\myRefines{\post(3)}{\post(3)}$}
+\subsection{\color{blue}Implication 23\color{black}: $\myRefines{[\post(3),\post(3)]}{skip}$}
 \begin{align*}
 &\text{To prove:} \post(3) \Implies \post(3)\subst{r_0}{r} \\\\
 %

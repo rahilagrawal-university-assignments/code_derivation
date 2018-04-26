@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "reverse.h"
-#define USEGMP
+//#define USEGMP
+
 unsigned long emirp(unsigned long n);
 void isPrime(unsigned long r, int *a);
 
