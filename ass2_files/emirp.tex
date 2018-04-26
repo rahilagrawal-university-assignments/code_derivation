@@ -42,7 +42,7 @@ Therefore, we can define a primality check function as follows:
        \text{false} &\quad  \Exi{k \in 2..(r-1)}{r\textbf{ mod }k=0}\\ 
      \end{cases}
 \end{gather*}\\
-The $reversen(r,s)$ function provided (and proven true) in 18s1 Assignment 2 Spec can be used to occupy the reverse of a number $r$ in a variable called $s$.\\\\
+The $reverse(r,s)$ function can be used to store the reverse of a number $r$ in a variable called $s$.\\\\
 Having defined a primality check function $isPrime(r,a)$ and a function to store the reverse of a number $r$ in $s$, we define an $emirp$.\\\\
 An $emirp$ is a prime number whose reversal is also prime, but which is not a palindromic prime.\\\\
 Therefore, if $EMIRP(r,n)$ states that $r$ is the $n^{th}$ $emirp$,where $n$ is a positive integer, then:
@@ -1047,26 +1047,19 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 26\color{black}: $\myRefines{[Inv_{2}\subst{0}{a}\subst{j+1}{j]}, post(11)}{a\Ass 0}$}
+\subsection{\color{blue}Implication 26\color{black}: $\myRefines{[Inv_{2}\subst{j+1}{j]}\subst{0}{a}}{post(11)}$}
 \begin{align*}
-&\text{To prove:} BLAH \\\\
+&\text{To prove:} a=a_0 \And Inv_2\subst{j+1}{j}\subst{0}{a} \Implies \post(11) \\\\
 %
 &\text{Proof:}\\
 %
-&LHS = BLAH\\
+&LHS = a=a_0 \And Inv_2\subst{j+1}{j}\subst{0}{a}\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{Removing conjuncts}
+&Inv_2\subst{j+1}{j}\subst{0}{a}\\
 %
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-\myjustification[\Implies]{BLAH}
+\myjustification[\Implies]{Clearly}
 &RHS\\
 \end{align*}
 
@@ -1095,26 +1088,19 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 
 \subsection{\color{blue}Implication 28\color{black}: $\myRefines{[Inv_{2}, post(11)]}{skip}$}
 \begin{align*}
-&\text{To prove:} BLAH \\\\
+&\text{To prove:} Inv_2\subst{j+1}{j} \Implies \post(11)\subst{r_0}{r} \\\\
 %
 &\text{Proof:}\\
 %
-&LHS = BLAH\\
+&LHS = Inv_2\subst{j+1}{j}\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{Since $r_0$ is the value of $r$ in the pre-condition, thus in precondition, $r_0 = r$}
+&Inv_2\subst{j+1}{j}\subst{r_0}{r}\\
 %
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-\myjustification[\Implies]{BLAH}
+\myjustification[\Implies]{$\post(11) = Inv_2\subst{j+1}{j}$}
 &RHS\\
 \end{align*}
+
 
 \section{Task 3 - C Code}
 \label{sec:task-3}
