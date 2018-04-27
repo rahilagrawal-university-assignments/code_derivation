@@ -658,7 +658,7 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 &LHS = [Inv \And i\neq n, Inv\subst{x+1}{x}]\\
 %
 \myjustification[\Implies]{Expanding Inv and performing substitution}
-&[EMIRP(r,n)\And x\geq r\And i\neq n, EMIRP(r,n)\And x+1\geq r]\\
+&[EMIRP(r,i)\And x\geq r\And i\neq n, EMIRP(r,i)\And x+1\geq r]\\
 %
 &\text{\bcolor We know that $x\geq r \Implies x+1\geq r$}\\
 &\text{\bcolor Since we have not found the $n^{th}$ emirp yet and $x$ is not an emirp, we increment x}\\
