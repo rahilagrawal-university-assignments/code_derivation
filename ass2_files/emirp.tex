@@ -264,12 +264,12 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}
   {
   \nt{s,x:\left[
     \begin{array}{l}
-      \pre(16), s=0
+      \pre(16), s=0 \And x>0
     \end{array}
   \right]}{(18)};\\
   &\nt{a,i,r,s,x: \left[
     \begin{array}{l}
-      s=0, \post(16)
+      x>0 \And s=0, \post(16)
     \end{array}
   \right]}{(19)}}\\
 %
@@ -649,26 +649,21 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 \end{align*}
 
 
-\subsection{\color{blue}Implication 6\color{black}: $\myRefines{}{}$}
+\subsection{\color{blue}Implication 6\color{black}: $\myRefines{[Inv \And i\neq n, Inv\subst{x+1}{x}]}{x\Ass {x+1}}$}
 \begin{align*}
-&\text{To prove:} BLAH \\\\
+&\text{To prove:} [Inv \And i\neq n, Inv\subst{x+1}{x}] \isrefinedby x\Ass {x+1}\\\\
 %
 &\text{Proof:}\\
 %
-&LHS = BLAH\\
+&LHS = [Inv \And i\neq n, Inv\subst{x+1}{x}]\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{Expanding Inv and performing substitution}
+&[EMIRP(r,n)\And x\geq r\And i\neq n, EMIRP(r,n)\And x+1\geq r]\\
 %
+&\text{\bcolor We know that $x\geq r \Implies x+1\geq r$}\\
+&\text{\bcolor Since we have not found the $n^{th}$ emirp yet and $x$ is not an emirp, we increment x}\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-\myjustification[\Implies]{BLAH}
+\myjustification[\Implies]{Therefore, our program can be refined by $x\Ass {x+1}$}
 &RHS\\
 \end{align*}
 
@@ -711,26 +706,26 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 9\color{black}: $\myRefines{}{}$}
+\subsection{\color{blue}Implication 9\color{black}: $\myRefines{[a\neq 1 \And \pre(15), \post(15)]}{[[Inv,Inv]]}$}
 \begin{align*}
-&\text{To prove:} BLAH \\\\
+&\text{To prove:} a\neq 1 \And \pre(15) \Implies Inv \\\\
 %
 &\text{Proof:}\\
 %
-&LHS = BLAH\\
+&LHS = a\neq 1 \And \pre(15)\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{$a\neq 1 \Implies$ x is not prime $\Implies$ we have not found a new Emirp}
+&EMIRP(r.n)\\
 %
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{$x\geq r$ because x only ever increases and started with x=r=13}
+&EMIRP(r,n)\And x\geq r\\
 %
-\myjustification[\Implies]{BLAH}
+%
+\myjustification[\Implies]{By definition of Inv}
+&Inv\\
+%
+\myjustification[\Implies]{Clearly}
 &RHS\\
 \end{align*}
 
@@ -752,22 +747,22 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 \subsection{\color{blue}Implication 11\color{black}: $\myRefines{(18)}{s \Ass 0}$}
 \begin{align*}
 &\text{To prove: } s=s_{0} \And (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\Or\\
-&(a=0 \And\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})) \Implies s=0\subst{0}{s}\\\\
+&((a=0 \And\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})) \Implies (s=0 \And x>0)\subst{0}{s}\\\\
 %
 &\text{Proof:}\\
 %
-&LHS = s=s_{0} \And (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\Or\\
+&LHS = s=s_{0} \And ((a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\Or\\
 &(a=0 \And\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0}))\\
 %
-\myjustification[\Implies]{0=0 is vacuously true}
-&0=0 \And s=s_{0} \And (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\Or\\
-&(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0}))\\
+\myjustification[\Implies]{0=0 is vacuously true and $x$ is a positive integer}
+&0=0 \And s=s_{0} \And ((a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\Or\\
+&(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\And x>0\\
 %
 \myjustification[\Implies]{$A \And B \And C \Implies A$}
-&0=0\\
+&0=0 \And x>0\\
 %
-\myjustification[\Implies]{$0=0 \Implies (s=0)\subst{1}{s}$}
-&(s=0)\subst{0}{s}\\
+\myjustification[\Implies]{$0=0 \Implies (s=0)\subst{1}{s} \And x>0$ does not involve $s$}
+&(s=0 \And x>0)\subst{0}{s}\\
 %
 \myjustification[\Implies]{clearly}
 &RHS\\
@@ -776,24 +771,22 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 
 \subsection{\color{blue}Implication 12\color{black}: $\myRefines{[\pre(19), s = \sum\limits_{i=0}^{c(x)}(S_i10^{i})]}{[x = \sum\limits_{i=0}^{c(x)}(S_i10^{(c(x)-i)}) \And x>0, s = \sum\limits_{i=0}^{c(x)}(S_i10^{i})]}$}
 \begin{align*}
-&\text{To prove:} BLAH \\\\
+&\text{To prove: } s=0 \And x>0 \Implies x = \sum\limits_{i=0}^{c(x)}(S_i10^{(c(x)-i)}) \And x>0 \\\\
 %
 &\text{Proof:}\\
 %
-&LHS = BLAH\\
+&LHS = s=0\And x>0\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{$A\And B \Implies A$}
+&x>0\\
 %
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{$x \in N\And x>0 \Implies x$ can be represented as a sum of $S_{i}10^{c(n)-i}$}
+&\text{\bcolor ($S_i$ is a digit from the sequence of digits)}\\ 
+&x = \sum\limits_{i=0}^{c(x)}(S_i10^{(c(x)-i)}) \And x>0\\
 %
-\myjustification[\Implies]{BLAH}
+%
+\myjustification[\Implies]{Clearly}
 &RHS\\
 \end{align*}
 
@@ -929,26 +922,31 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 20\color{black}: $\myRefines{}{}$}
+\subsection{\color{blue}Implication 20\color{black}: $\myRefines{[a=1\And r>0\And j=2,Inv_2]}{Inv_2,Inv_2}$}
 \begin{align*}
-&\text{To prove:} BLAH \\\\
+&\text{To prove:} a=1\And r>0\And j=2 \Implies Inv_2 \\\\
 %
 &\text{Proof:}\\
 %
-&LHS = BLAH\\
+&LHS = a=1\And r>0\And j=2\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{$A\And B\And C \Implies A$}
+&j=2\\
 %
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{$\Exi{k\in 2..(2-1)}{\phi}$ is vacously true}
+&(a=1 \text{ }\And \neg\Exi{k \in 2..(2-1)}{j\textbf{ mod }k=0}\\
+&\Or(a=0 \And \Exi{k \in 2..(2-1)}{j\textbf{ mod }k=0}) \And j=2\\
 %
-\myjustification[\Implies]{BLAH}
+%
+\myjustification[\Implies]{combining conjuncts, putting j instead of 2}
+&(a=1 \text{ }\And \neg\Exi{k \in 2..(j-1)}{j\textbf{ mod }k=0}\\
+&\Or(a=0 \And \Exi{k \in 2..(j-1)}{j\textbf{ mod }k=0})\\
+%
+\myjustification[\Implies]{By definition of $Inv_2$}
+&Inv_2\\
+%
+\myjustification[\Implies]{Clearly}
 &RHS\\
 \end{align*}
 
@@ -973,12 +971,12 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 %
 &\text{Proof:}\\
 %
-&LHS = (a=1 \text{ }\And \neg\Exi{k \in 2..(j-1)}{j\textbf{ mod }k=0})\\
-&\Or(a=0 \And \Exi{k \in 2..(j-1)}{j\textbf{ mod }k=0}\And j=r\\
+&LHS = (a=1 \text{ }\And \neg\Exi{k \in 2..(j-1)}{j\textbf{ mod }k=0}\\
+&\Or(a=0 \And \Exi{k \in 2..(j-1)}{j\textbf{ mod }k=0})\And j=r\\
 %
 \myjustification[\Implies]{Combining conjuncts}
-&(a=1 \text{ }\And \neg\Exi{k \in 2..(r-1)}{r\textbf{ mod }k=0})\\
-&\Or(a=0 \And \Exi{k \in 2..(r-1)}{r\textbf{ mod }k=0}\\
+&(a=1 \text{ }\And \neg\Exi{k \in 2..(r-1)}{r\textbf{ mod }k=0}\\
+&\Or(a=0 \And \Exi{k \in 2..(r-1)}{r\textbf{ mod }k=0})\\
 %
 %
 \myjustification[\Implies]{Clearly}
