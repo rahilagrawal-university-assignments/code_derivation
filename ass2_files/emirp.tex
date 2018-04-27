@@ -17,7 +17,8 @@
 \newcommand{\myImplies}[2]{\color{red}#1\color{blue}\Implies\color{red}#2\color{black}}
 \newcommand{\pre}{\mathit{pre}}
 \newcommand{\post}{\mathit{post}}
-\newcommand{\emirp}{\textsc{emirp}\xspace}
+\newcommand{\emirp}{\text{emirp}\xspace}
+\newcommand{\Emirp}{\textsc{emirp}\xspace}
 \newcommand{\isPrime}{\textsc{isPrime}\xspace}
 \newcommand{\myCode}[1]{\mathbf{\color{ProcessBlue}#1}}
 \newcommand{\myRefines}[2]{\color{red}{#1}\color{black}\isrefinedby\color{red}{#2}}
@@ -47,27 +48,27 @@ Having defined a primality check function $isPrime(r,a)$ and a function to store
 An $emirp$ is a prime number whose reversal is also prime, but which is not a palindromic prime.\\\\
 Therefore, if $EMIRP(r,n)$ states that $r$ is the $n^{th}$ $emirp$,where $n$ is a positive integer, then:
 \begin{gather*}
-  \color{blue}EMIRP(r,n) = 
+  \color{blue}\Emirp(r,n) = 
      \begin{cases}
        \text{true} &\quad {isPrime(r) \And reverse(r,s) \And isPrime(s) \And r\neq s}\\
        \text{false} &\quad  otherwise\\
      \end{cases}
 \end{gather*}\\
 We want to find the $n^{th}$ $emirp$. Having defined the limitations on $n$ ($n>0$) and described what it means for a $r$ to be the $n^{th}$, we can specify our program with by:\\
-$\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}
+$\PROC~\Emirp(\VALUE~n, \RESULT~r)\cdot{}
  \nt{n,r,x:\left[
     \begin{array}{l}
-      n>0, Emirp(r,n)
+      n>0, \emirp(r,n)
     \end{array}
   \right]}{(1)}\\$
 \pagebreak
 \section{Task 2 - Derivation}
 \label{sec:task-2}
 \begin{align*}
-  &\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}	
+  &\PROC~\Emirp(\VALUE~n, \RESULT~r)\cdot{}	
   \nt{n,r,x:\left[
     \begin{array}{l}
-      n>0, Emirp(r,n)
+      n>0, \emirp(r,n)
     \end{array}
   \right]}{(1)}\\
 % 
@@ -76,7 +77,7 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}
   {
   \nt{r,x:\left[
     \begin{array}{l}
-      n>0, Emirp(r,n)
+      n>0, \emirp(r,n)
     \end{array}
   \right]}{(2)}}\\
 %
@@ -85,7 +86,7 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}
   {
   \nt{i,r,x:\left[
     \begin{array}{l}
-      n>0, Emirp(r,n)
+      n>0, \emirp(r,n)
     \end{array}
   \right]}{(3)}}\\
 %
@@ -99,7 +100,7 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}
   \right]}{(4)};\\
   &\nt{i,x:\left[
     \begin{array}{l}
-      i=1 \And x=13 \And n>0, Emirp(r,n)
+      i=1 \And x=13 \And n>0, \emirp(r,n)
     \end{array}
   \right]}{(5)}}\\
 %
@@ -131,7 +132,7 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}
   \right]}{(7)};\\
   &\nt{i,r,x:\left[
     \begin{array}{l}
-      Inv \And i=n, Emirp(r,n)
+      Inv \And i=n, \emirp(r,n)
     \end{array}
   \right]}{(8)}}\\
 %
@@ -522,7 +523,7 @@ $\PROC~\emirp(\VALUE~n, \RESULT~r)\cdot{}
 \end{align*}\\
 We gather the code for the procedure body of $\emirp$:
 \begin{gather*}
-  \mathbf{EMIRP(r,n):}\\
+  \mathbf{\Emirp(r,n):}\\
   \qquad \var i\Ass 1;\\
   \qquad \var x\Ass 13;\\
   \qquad r\Ass 13;\\
@@ -586,7 +587,7 @@ To prove w-pre we need to prove: $pre \Implies pre^{'}$
 &i=1 \And x=13 \\
 %
 \myjustification[\Implies]{We know that 13 is the 1st emirp from our definition of emirp, also 13$\geq$r in this case}
-&i=1 \And Emirp(13,1) \And x=13 \And 13\geq r\\
+&i=1 \And \emirp(13,1) \And x=13 \And 13\geq r\\
 %
 \myjustification[\Implies]{This is our Inv with 13 substituted for x}
 &Inv\subst{13}{x}\\
@@ -609,24 +610,24 @@ To prove w-pre we need to prove: $pre \Implies pre^{'}$
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 4\color{black}: $\myRefines{Inv\And i=n}{Emirp(r,n)}$}
+\subsection{\color{blue}Implication 4\color{black}: $\myRefines{Inv\And i=n}{\emirp(r,n)}$}
 \begin{align*}
-&\text{To prove:} Inv\And i=n \Implies Emirp(r,n) \\\\
+&\text{To prove:} Inv\And i=n \Implies \emirp(r,n) \\\\
 %
 &\text{Proof:}\\
 %
 &LHS = Inv\And i=n\\
 %
 \myjustification[\Implies]{Expanding the Invariant}
-&Emirp(r,i) \And x\geq r \And i=n\\
+&\emirp(r,i) \And x\geq r \And i=n\\
 %
 %
 \myjustification[\Implies]{Combining conjuncts}
-&Emirp(r,n) \And x\geq r\\
+&\emirp(r,n) \And x\geq r\\
 %
 %
 \myjustification[\Implies]{$A\And B \Implies A$}
-&Emirp(r,n)\\
+&\emirp(r,n)\\
 %
 \myjustification[\Implies]{Clearly}
 &RHS\\
@@ -635,14 +636,14 @@ To prove w-pre we need to prove: $pre \Implies pre^{'}$
 \subsection{\color{blue}Implication 5\color{black}: $\myRefines{(10)}{skip}$}
 To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 \begin{align*}
-&\text{To prove: } Emirp(r, n) \Implies Emirp(r,n)\subst{r_{0}}{r}\\\\
+&\text{To prove: } \emirp(r, n) \Implies \emirp(r,n)\subst{r_{0}}{r}\\\\
 %
 &\text{Proof:}\\
 %
-&LHS = Emirp(r, n)\\
+&LHS = \emirp(r, n)\\
 %
 \myjustification[\Implies]{Since $r_{0}$ is the value of r in the precondition, $r=r_{0}$ in the precondition}
-&Emirp(r_{0}, n)\\
+&\emirp(r_{0}, n)\\
 %
 \myjustification[\Implies]{clearly}
 &RHS\\
@@ -658,7 +659,7 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 &LHS = [Inv \And i\neq n, Inv\subst{x+1}{x}]\\
 %
 \myjustification[\Implies]{Expanding Inv and performing substitution}
-&[EMIRP(r,i)\And x\geq r\And i\neq n, EMIRP(r,i)\And x+1\geq r]\\
+&[\emirp(r,i)\And x\geq r\And i\neq n, \emirp(r,i)\And x+1\geq r]\\
 %
 &\text{\bcolor We know that $x\geq r \Implies x+1\geq r$}\\
 &\text{\bcolor Since we have not found the $n^{th}$ emirp yet and $x$ is not an emirp, we increment x}\\
@@ -697,7 +698,7 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 &LHS = Inv\subst{x+1}{x} \And a=1\\
 %
 \myjustification[\Implies]{Expanding Inv and performing substitution}
-&Emirp(r,n) \And x+1>=r \And a=1\\
+&\emirp(r,n) \And x+1>=r \And a=1\\
 %
 \myjustification[\Implies]{Since $x$ and $r$ starts at 13 and we are incrementing x, $x>0$ }
 &x>0 \And a=1\\
@@ -715,11 +716,11 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 &LHS = a\neq 1 \And \pre(15)\\
 %
 \myjustification[\Implies]{$a\neq 1 \Implies$ x is not prime $\Implies$ we have not found a new Emirp}
-&EMIRP(r.n)\\
+&\emirp(r.n)\\
 %
 %
 \myjustification[\Implies]{$x\geq r$ because x only ever increases and started with x=r=13}
-&EMIRP(r,n)\And x\geq r\\
+&\emirp(r,n)\And x\geq r\\
 %
 %
 \myjustification[\Implies]{By definition of Inv}
@@ -826,26 +827,26 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 15\color{black}: $\myRefines{}{}$}
+\subsection{\color{blue}Implication 15\color{black}: $\myRefines{(26)}{[Inv\subst{i+1}{i}\subst{x}{r}, Inv]}$}
 \begin{align*}
-&\text{To prove:} BLAH \\\\
+&\text{To prove: } b=1 \And s \neq x \And (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\\&\Or(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0}) \Implies Inv\subst{i+1}{i}\subst{x}{r}\\\\
 %
 &\text{Proof:}\\
 %
-&LHS = BLAH\\
+&LHS = b=1 \And s \neq x \And (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\\&\Or(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{$A \And B \And C \Implies A \And B$}
+&b=1 \And s \neq x\\
 %
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{since $b=1\And s\neq x \Implies x$ is an emirp $\Implies r=x=(i+1)^{th}$ emirp. }
+&[\emirp(r,i) \And x \geq r]\subst{i+1}{i}\subst{x}{r}\\
 %
-\myjustification[\Implies]{BLAH}
+%
+\myjustification[\Implies]{By the definition of Inv and substitution}
+&Inv\subst{i+1}{i}\subst{x}{r}\\
+%
+\myjustification[\Implies]{clearly}
 &RHS\\
 \end{align*}
 
@@ -865,26 +866,26 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 17\color{black}: $\myRefines{}{}$}
+\subsection{\color{blue}Implication 17\color{black}: $\myRefines{(27)}{[Inv, Inv]}$}
 \begin{align*}
-&\text{To prove:} BLAH \\\\
+&\text{To prove: } (b \neq 1 \Or s=x) \And (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\\&\Or(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0}) \Implies Inv \\\\
 %
 &\text{Proof:}\\
 %
-&LHS = BLAH\\
+&LHS = (b \neq 1 \Or s=x) \And (a=1 \text{ }\And \neg\Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\\&\Or(a=0 \And \Exi{k \in 2..(x-1)}{x\textbf{ mod }k=0})\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{$A \And B \And C \Implies A \And B$}
+&b \neq 1 \Or s=x\\
 %
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{since $b\neq 1\And s=x \Implies x$ is not an emirp $\Implies r$ is still the $i^{th}$ emirp}
+&\emirp(r,i) \And x \geq r\\
 %
-\myjustification[\Implies]{BLAH}
+%
+\myjustification[\Implies]{By the defintion of Inv}
+&Inv\\
+%
+\myjustification[\Implies]{Clearly}
 &RHS\\
 \end{align*}
 
@@ -1013,26 +1014,23 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 25\color{black}: $\myRefines{}{}$}
+\subsection{\color{blue}Implication 25\color{black}: $\myRefines{(11)}{[Inv_{2}\subst{j+1}{j}\subst{0}{a}, post(11)]}$}
 \begin{align*}
-&\text{To prove:} BLAH \\\\
+&\text{To prove: } r \textbf{ mod } j = 0 \And Inv_{2} \And j \neq r \Implies Inv_{2}\subst{j+1}{j}\subst{0}{a}\\\\
 %
 &\text{Proof:}\\
 %
-&LHS = BLAH\\
+&LHS = r \textbf{ mod } j = 0 \And Inv_{2} \And j \neq r\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{$A \And B \And C \Implies A \And B$}
+&r \textbf{ mod } j = 0 \And Inv_{2}\\
 %
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{$r \textbf{ mod } j = 0 \Implies r$ is not a prime $\Implies$ $a \Ass 0$ and we increment j}
+&Inv_{2}\subst{j+1}{j}\subst{0}{a}\\
 %
-\myjustification[\Implies]{BLAH}
+%
+\myjustification[\Implies]{clearly}
 &RHS\\
 \end{align*}
 
@@ -1052,26 +1050,23 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 &RHS\\
 \end{align*}
 
-\subsection{\color{blue}Implication 27\color{black}: $\myRefines{(12)}{[Inv_{2}, post(11)]}$}
+\subsection{\color{blue}Implication 27\color{black}: $\myRefines{(12)}{[Inv_{2}\subst{j+1}{j}, post(11)]}$}
 \begin{align*}
-&\text{To prove:} BLAH \\\\
+&\text{To prove: } r \textbf{ mod } j \neq 0 \And Inv_{2} \And j \neq r \Implies Inv_{2}\subst{j+1}{j}\\\\
 %
 &\text{Proof:}\\
 %
-&LHS = BLAH\\
+&LHS = r \textbf{ mod } j \neq 0 \And Inv_{2} \And j \neq r\\
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
-%
-%
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{$A \And B \And C \Implies A \And B$}
+&r \textbf{ mod } j \neq 0 \And Inv_{2}\\
 %
 %
-\myjustification[\Implies]{BLAH}
-&BLAH\\
+\myjustification[\Implies]{$r \textbf{ mod } j \neq 0 \Implies r$ may be prime and therefore we only increment j}
+&Inv_{2}\subst{j+1}{j}\\
 %
-\myjustification[\Implies]{BLAH}
+%
+\myjustification[\Implies]{clearly}
 &RHS\\
 \end{align*}
 
