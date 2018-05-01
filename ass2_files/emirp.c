@@ -8,6 +8,7 @@ int main (int argc, char* argv[]){
 	unsigned long n;
 	if(scanf("%lu", &n)==1)
 	   printf("%lu\n",emirp(n));
+	return 0;
 }
 
 unsigned long emirp(unsigned long n) {
