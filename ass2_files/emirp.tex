@@ -1089,4 +1089,31 @@ To prove skip, we need to prove $pre\Implies post\subst{r_{0}}{r}$
 \section{Task 3 - C Code}
 \label{sec:task-3}
 \lstinputlisting{emirp.c}
+Tests on CSE Machine:\\
+$>$	time ./emirp\\
+	100\\
+	3049\\
+	real 0m2.045s\\
+	user 0m0.028s\\
+	sys 0m0.000s\\
+$>$	time ./emirp\\
+	1000\\
+	70529\\
+	real 0m14.703s\\
+	user 0m13.016s\\
+	sys 0m0.001s\\\\	
+The following representative tests were done on CSE to check the time taken to find the $100^{th}$ , $1000^{th}$ , $10000^{th}$ emirps. It is clear that it takes quite a long time as we increase the size of $n$. This is because of the non-optimal primality check function that we have derived ourselves. It would take a very short time to find the same emirps using the GMP functions that are publicly available. However, we decided to use our own prime function which runs in time $O(n)$ (checks all divisibilty of n from all numbers between 2 and n-1).
+Time taken using GMP:\\
+$>$	time ./emirp\\
+	100\\
+	3049\\
+	real 0m0.003s\\
+	user 0m0.000s\\
+	sys 0m0.000s\\
+$>$	time ./emirp\\
+	1000\\
+	70529\\
+	real 0m.037s\\
+	user 0m0.040s\\
+	sys 0m0.000s\\
 \end{document}

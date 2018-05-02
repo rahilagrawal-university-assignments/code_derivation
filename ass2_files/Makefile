@@ -6,7 +6,7 @@ TARGETS	:= emirp
 
 .PHONY: all clean
 
-all: $(TARGETS) emirp.pdf
+all: $(TARGETS)
 
 # remove -DUSEGMP and -lgmp unless you use gmp
 emirp: reverse.c reverse.h emirp.c
@@ -17,4 +17,4 @@ emirp.pdf: emirp.tex
 	latexmk -pdf emirp.tex && latexmk -c
 
 clean:
-	$(RM) $(OFILES) $(TARGETS) *.gch
+	$(RM) $(OFILES) $(TARGETS) *.gch emirp.pdf && latexmk -c
